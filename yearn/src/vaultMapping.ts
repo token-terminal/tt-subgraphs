@@ -264,7 +264,7 @@ export function handleTransfer(event: Transfer): void {
     let decimals = getTokenDecimals(vaultContract.token());
     let tryPricePerShare = vaultContract.try_pricePerShare();
 
-    if (!tryPricePerShare.reverted) {
+    if (tryPricePerShare.reverted) {
       return;
     }
 
