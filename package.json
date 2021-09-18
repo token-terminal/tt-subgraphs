@@ -4,9 +4,8 @@
   "description": "Subgraphs developed and maintained by Token Temrinal.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/token-terminal/smart-contract-registry/issues"
+    "url": "https://github.com/token-terminal/tt-subgraphs/issues"
   },
-  "homepage": "https://github.com/token-terminal/smart-contract-registry#readme",
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.1",
     "@graphprotocol/graph-ts": "0.20.0"
