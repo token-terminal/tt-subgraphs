@@ -1,0 +1,19 @@
+{
+  "name": "tt-subgraphs",
+  "version": "1.0.0",
+  "description": "Subgraphs developed and maintained by Token Temrinal.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/token-terminal/smart-contract-registry/issues"
+  },
+  "homepage": "https://github.com/token-terminal/smart-contract-registry#readme",
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.20.1",
+    "@graphprotocol/graph-ts": "0.20.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "husky": "^7.0.2"
+  }
+}

@@ -1,0 +1,204 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Registry5
+    network: mainnet
+    source:
+      address: "0x7bacf22f747f2f4b983081c0aa76dddfecd008ab"
+      abi: Registry
+      startBlock: 11870014
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - NewVaultEvent
+        - NewExperimentalVaultEvent
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: NewVault(indexed address,indexed uint256,address,string)
+          handler: handleNewVault
+        - event: NewExperimentalVault(indexed address,indexed address,address,string)
+          handler: handleNewExperimentalVault
+      file: ./src/vaultMapping.ts
+  - kind: ethereum/contract
+    name: Registry6
+    network: mainnet
+    source:
+      address: "0xe15461b18ee31b7379019dc523231c57d1cbc18c"
+      abi: Registry
+      startBlock: 11563389
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - NewVaultEvent
+        - NewExperimentalVaultEvent
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: NewVault(indexed address,indexed uint256,address,string)
+          handler: handleNewVault
+        - event: NewExperimentalVault(indexed address,indexed address,address,string)
+          handler: handleNewExperimentalVault
+      file: ./src/vaultMapping.ts
+  - kind: ethereum/contract
+    name: Registry7
+    network: mainnet
+    source:
+      address: "0x50c1a2eA0a861A967D9d0FFE2AE4012c2E053804"
+      abi: Registry
+      startBlock: 12045555
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - NewVaultEvent
+        - NewExperimentalVaultEvent
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: NewVault(indexed address,indexed uint256,address,string)
+          handler: handleNewVault
+        - event: NewExperimentalVault(indexed address,indexed address,address,string)
+          handler: handleNewExperimentalVault
+      file: ./src/vaultMapping.ts
+  # The wallet that deployed LINK pool
+  - kind: ethereum/contract
+    name: CustomWallet1
+    network: mainnet
+    source:
+      address: "0xa11604944ddd93c6e10d2939040a66579df3d35a"
+      abi: Registry
+      startBlock: 12542636
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - NewVaultEvent
+        - NewExperimentalVaultEvent
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: NewVault(indexed address,indexed uint256,address,string)
+          handler: handleNewVault
+        - event: NewExperimentalVault(indexed address,indexed address,address,string)
+          handler: handleNewExperimentalVault
+      file: ./src/vaultMapping.ts
+  # The wallet that deployed WBTC pool
+  - kind: ethereum/contract
+    name: CustomWallet2
+    network: mainnet
+    source:
+      address: "0xa11604944ddd93c6e10d2939040a66579df3d35a"
+      abi: Registry
+      startBlock: 12185982
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - NewVaultEvent
+        - NewExperimentalVaultEvent
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: NewVault(indexed address,indexed uint256,address,string)
+          handler: handleNewVault
+        - event: NewExperimentalVault(indexed address,indexed address,address,string)
+          handler: handleNewExperimentalVault
+      file: ./src/vaultMapping.ts
+templates:
+  - name: Vault
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Vault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Strategy
+        - Token
+        - StrategyAddedEvent
+        - StrategyAdded_v0_3_0_v0_3_1Event
+        - StrategyReportedEvent
+        - StrategyReported_v0_3_0_v0_3_1Event
+        - TransferEvent
+      abis:
+        - name: Vault
+          file: ./abis/Vault.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Strategy
+          file: ./abis/StrategyAPI.json
+      eventHandlers:
+        - event: StrategyAdded(indexed address,uint256,uint256,uint256)
+          handler: handleStrategyAdded_v0_3_0_v0_3_1
+        - event: StrategyAdded(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleStrategyAdded
+        - event: StrategyReported(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleStrategyReported_v0_3_0_v0_3_1
+        - event: StrategyReported(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleStrategyReported
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/vaultMapping.ts
+  - name: Strategy
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Strategy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Strategy
+      abis:
+        - name: Strategy
+          file: ./abis/StrategyAPI.json
+      file: ./src/strategyMapping.ts
