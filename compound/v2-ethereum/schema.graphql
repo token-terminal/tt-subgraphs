@@ -1,0 +1,4 @@
+type ComptrollerImplementationEvent @entity {
+  id: ID!
+  newImplementation: Bytes!
+}
