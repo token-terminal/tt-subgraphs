@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: ComptrollerInterface
+    name: IComptroller
     network: mainnet
     source:
       address: "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B"
-      abi: Comptroller
+      abi: IComptroller
       startBlock: 7710671
     mapping:
       kind: ethereum/events
@@ -15,41 +15,31 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - ComptrollerImplementationEvent
+        - ComptrollerImplementation
       abis:
-        - name: Comptroller
-          file: ./abis/Comptroller.json
+        - name: IComptroller
+          file: ./abis/IComptroller.json
       eventHandlers:
         - event: NewImplementation(address,address)
           handler: handleNewImplementation
       file: ./src/mapping.ts
 templates:
-  - name: ComptrollerImpl
+  - name: ComptrollerImplementation
     kind: ethereum/contract
     network: mainnet
     source:
-      abi: ComptrollerImpl
+      abi: Comptroller
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Vault
-      abis:
-        - name: Vault
-          file: ./abis/Vault.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: Strategy
-          file: ./abis/StrategyAPI.json
+        - ComptrollerImplementation
+        - Market
       eventHandlers:
-        - event: StrategyAdded(indexed address,uint256,uint256,uint256)
-          handler: handleStrategyAdded_v0_3_0_v0_3_1
-        - event: StrategyAdded(indexed address,uint256,uint256,uint256,uint256)
-          handler: handleStrategyAdded
-        - event: StrategyReported(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
-          handler: handleStrategyReported_v0_3_0_v0_3_1
-        - event: StrategyReported(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
-          handler: handleStrategyReported
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/vaultMapping.ts
+        - event: MarketListed(address)
+          handler: handleMarketListed
+      abis:
+        - name: Comptroller
+          file: ./abis/Comptroller.json
+      file: ./src/mapping.ts

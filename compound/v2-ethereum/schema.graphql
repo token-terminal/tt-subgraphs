@@ -2,3 +2,11 @@ type ComptrollerImplementationEvent @entity {
   id: ID!
   newImplementation: Bytes!
 }
+
+type ComptrollerImplementation @entity {
+  id: ID!
+}
+
+type Market @entity {
+  id: ID!
+}
