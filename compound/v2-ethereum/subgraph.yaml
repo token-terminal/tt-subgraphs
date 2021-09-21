@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - ComptrollerImplementation
+        - Comptroller
         - Market
       abis:
         - name: Comptroller
@@ -24,6 +25,8 @@ dataSources:
       eventHandlers:
         - event: NewImplementation(address,address)
           handler: handleNewImplementation
+        - event: NewPriceOracle(address,address)
+          handler: handleNewPriceOracle
         - event: MarketListed(address)
           handler: handleMarketListed
       file: ./src/mapping.ts

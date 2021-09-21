@@ -1,13 +1,14 @@
 import { Address, BigDecimal } from "@graphprotocol/graph-ts";
 import {
   NewImplementation,
+  NewPriceOracle
 } from "../generated/Comptroller/Comptroller";
 import { CToken as CTokenTemplate } from "../generated/templates";
 import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { ComptrollerImplementationEvent } from "../generated/schema";
-import { getOrCreateComptrollerImplementation, getOrCreateMarket, getMarket, isMarket, getTokenDecimals, amountToDenomination, exponentToBigDecimal } from "./helpers";
+import { getOrCreateComptroller, getOrCreateComptrollerImplementation, getOrCreateMarket, getMarket, isMarket, getTokenDecimals, amountToDenomination, exponentToBigDecimal } from "./helpers";
 import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
@@ -21,6 +22,13 @@ export function handleNewImplementation(event: NewImplementation): void {
   newComptrollerImplementationEvent.save();
 
   let comptroller = getOrCreateComptrollerImplementation(newImplementation.toHexString());
+  comptroller.save();
+}
+
+export function handleNewPriceOracle(event: NewPriceOracle): void {
+  let comptroller = getOrCreateComptroller();
+  let priceOracle = event.params.newPriceOracle;
+  comptroller.priceOracle = priceOracle;
   comptroller.save();
 }
 

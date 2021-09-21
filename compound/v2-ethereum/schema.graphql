@@ -7,6 +7,11 @@ type ComptrollerImplementation @entity {
   id: ID!
 }
 
+type Comptroller @entity {
+  id: ID!
+  priceOracle: Bytes!
+}
+
 type Market @entity {
   "CToken address"
   id: ID!
