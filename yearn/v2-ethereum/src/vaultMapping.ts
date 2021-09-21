@@ -16,7 +16,7 @@ import {
   Transfer
 } from '../generated/Registry7/Vault';
 import { NewVaultEvent, NewExperimentalVaultEvent, StrategyAddedEvent, StrategyAdded_v0_3_0_v0_3_1Event, StrategyReportedEvent, StrategyReported_v0_3_0_v0_3_1Event, TransferEvent } from "../generated/schema"
-import { createOrLoadVault, loadVault, isVault, createOrLoadStrategy, isStrategy, createOrLoadToken, getTokenDecimals, amountToDenomination, } from "./helpers";
+import { getOrCreateVault, loadVault, isVault, getOrCreateStrategy, isStrategy, getOrCreateToken, getTokenDecimals, amountToDenomination, } from "./helpers";
 
 let BASIS_POINTS_BD = BigDecimal.fromString("10000");
 
@@ -37,11 +37,11 @@ export function handleNewVault(event: NewVault): void {
 
   VaultTemplate.create(event.params.vault);
 
-  let token = createOrLoadToken(tokenAddress.toHexString());
+  let token = getOrCreateToken(tokenAddress.toHexString());
   token.save();
 
   let vaultContract = Vault.bind(vaultAddress);
-  let vault = createOrLoadVault(vaultAddress.toHexString(), token);
+  let vault = getOrCreateVault(vaultAddress.toHexString(), token);
   
   let trySymbol = vaultContract.try_symbol();
   let tryName = vaultContract.try_name();
@@ -80,11 +80,11 @@ export function handleNewExperimentalVault(event: NewExperimentalVault): void {
 
   VaultTemplate.create(vaultAddress);
 
-  let token = createOrLoadToken(tokenAddress.toHexString());
+  let token = getOrCreateToken(tokenAddress.toHexString());
   token.save();
 
   let vaultContract = Vault.bind(vaultAddress);
-  let vault = createOrLoadVault(vaultAddress.toHexString(), token);
+  let vault = getOrCreateVault(vaultAddress.toHexString(), token);
 
   let trySymbol = vaultContract.try_symbol();
   let tryName = vaultContract.try_name();
@@ -125,7 +125,7 @@ export function handleStrategyAdded(event: StrategyAdded1): void {
   newStrategyAdded.save();
 
   let vault = loadVault(vaultAddress.toHexString());
-  let strategy = createOrLoadStrategy(strategyAddress.toHexString(), vault);
+  let strategy = getOrCreateStrategy(strategyAddress.toHexString(), vault);
   strategy.save();
 
   StrategyTemplate.create(strategyAddress);
@@ -149,7 +149,7 @@ export function handleStrategyAdded_v0_3_0_v0_3_1(event: StrategyAdded): void {
   newStrategyAdded.save();
 
   let vault = loadVault(vaultAddress.toHexString());
-  let strategy = createOrLoadStrategy(strategyAddress.toHexString(), vault);
+  let strategy = getOrCreateStrategy(strategyAddress.toHexString(), vault);
   strategy.save();
 
   StrategyTemplate.create(strategyAddress);
@@ -178,7 +178,7 @@ export function handleStrategyReported(event: StrategyReported1): void {
 
   let vaultContract = Vault.bind(event.address);
   let vault = loadVault(event.address.toHexString());
-  let token = createOrLoadToken(vault.denomination);
+  let token = getOrCreateToken(vault.denomination);
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
   let performanceFeesGenerated = yieldGenerated.times(vaultContract.performanceFee().toBigDecimal().div(BASIS_POINTS_BD))
@@ -223,7 +223,7 @@ export function handleStrategyReported_v0_3_0_v0_3_1(event: StrategyReported): v
 
   let vaultContract = Vault.bind(event.address);
   let vault = loadVault(event.address.toHexString());
-  let token = createOrLoadToken(vault.denomination);
+  let token = getOrCreateToken(vault.denomination);
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
   let performanceFeesGenerated = yieldGenerated.times(vaultContract.performanceFee().toBigDecimal().div(BASIS_POINTS_BD))

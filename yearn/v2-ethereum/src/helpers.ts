@@ -5,7 +5,7 @@ import { ERC20 } from "../generated/templates/Vault/ERC20"
 export let ZERO_BD = BigDecimal.fromString("0");
 export let ZERO_BI = BigInt.fromString("0");
 
-export function createOrLoadVault(id: string, token: Token): Vault {
+export function getOrCreateVault(id: string, token: Token): Vault {
   let vault = Vault.load(id);
   if (vault == null) {
       vault = new Vault(id);
@@ -21,7 +21,7 @@ export function createOrLoadVault(id: string, token: Token): Vault {
   return vault as Vault;
 }
 
-export function createOrLoadToken(id: string): Token {
+export function getOrCreateToken(id: string): Token {
   let token = Token.load(id);
   if (token == null) {
       let tokenContract = ERC20.bind(Address.fromString(id));
@@ -43,7 +43,7 @@ export function isVault(id: string): boolean {
   return loadVault(id) !== null;
 }
 
-export function createOrLoadStrategy(id: string, vault: Vault): Strategy {
+export function getOrCreateStrategy(id: string, vault: Vault): Strategy {
   let strategy = Strategy.load(id);
   if (strategy == null) {
       strategy = new Strategy(id);

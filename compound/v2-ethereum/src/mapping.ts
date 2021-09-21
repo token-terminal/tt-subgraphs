@@ -7,7 +7,7 @@ import {
 } from "../generated/templates";
 import { MarketListed } from "../generated/templates/ComptrollerImplementation/Comptroller"
 import { ComptrollerImplementationEvent } from "../generated/schema";
-import { createOrLoadComptrollerImplementation, createOrLoadMarket } from "./helpers";
+import { getOrCreateComptrollerImplementation, getOrCreateMarket } from "./helpers";
 
 export function handleNewImplementation(event: NewImplementation): void {
   let newComptrollerImplementationEvent = new ComptrollerImplementationEvent(event.transaction.hash.toHexString());
@@ -19,13 +19,13 @@ export function handleNewImplementation(event: NewImplementation): void {
 
   ComptrollerTemplate.create(newImplementation);
 
-  let comptroller = createOrLoadComptrollerImplementation(newImplementation.toHexString());
+  let comptroller = getOrCreateComptrollerImplementation(newImplementation.toHexString());
   comptroller.save();
 }
 
 export function handleMarketListed(event: MarketListed): void {
   let ctokenAddress = event.params.cToken;
 
-  let market = createOrLoadMarket(ctokenAddress.toHexString());
+  let market = getOrCreateMarket(ctokenAddress.toHexString());
   market.save();
 }

@@ -4,7 +4,7 @@ import { ComptrollerImplementation, Market } from "../generated/schema";
 export let ZERO_BD = BigDecimal.fromString("0");
 export let ZERO_BI = BigInt.fromString("0");
 
-export function createOrLoadComptrollerImplementation(id: string): ComptrollerImplementation {
+export function getOrCreateComptrollerImplementation(id: string): ComptrollerImplementation {
   let comptroller = ComptrollerImplementation.load(id);
   if (comptroller == null) {
       comptroller = new ComptrollerImplementation(id);
@@ -12,7 +12,7 @@ export function createOrLoadComptrollerImplementation(id: string): ComptrollerIm
   return comptroller as ComptrollerImplementation;
 }
 
-export function createOrLoadMarket(id: string): Market {
+export function getOrCreateMarket(id: string): Market {
   let market = Market.load(id);
   if (market == null) {
       market = new Market(id);
