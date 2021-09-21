@@ -9,4 +9,7 @@ type ComptrollerImplementation @entity {
 
 type Market @entity {
   id: ID!
+  totalFeesGenerated: BigDecimal!
+  totalBorrows: BigDecimal!
+  denomination: Bytes!
 }
