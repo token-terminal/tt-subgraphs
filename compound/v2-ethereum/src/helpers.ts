@@ -19,9 +19,11 @@ export function getOrCreateMarket(id: string, token: Token): Market {
   if (market == null) {
       market = new Market(id);
       market.totalFeesGenerated = ZERO_BD;
+      market.totalProtocolFeesGenerated = ZERO_BD;
       market.totalBorrows = ZERO_BD;
       market.totalSupply = ZERO_BD;
       market.supplyRate = ZERO_BD;
+      market.reserveFactor = ZERO_BD;
       market.denomination = token.id;
   }
   return market as Market;

@@ -53,4 +53,6 @@ templates:
       eventHandlers:
         - event: AccrueInterest(uint256,uint256,uint256)
           handler: handleAccrueInterest
+        - event: NewReserveFactor(uint256,uint256)
+          handler: handleNewReserveFactor
       file: ./src/mapping.ts

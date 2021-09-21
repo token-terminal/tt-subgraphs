@@ -10,8 +10,11 @@ type Market @entity {
   "CToken address"
   id: ID!
 
-  "Total interest accrued."
+  "Total interest accrued"
   totalFeesGenerated: BigDecimal!
+
+  "The part of total fees that goes to the protocol"
+  totalProtocolFeesGenerated: BigDecimal!
 
   "Borrows in the market"
   totalBorrows: BigDecimal!
@@ -21,6 +24,9 @@ type Market @entity {
 
   "Yearly supply rate. With 2104400 blocks per year"
   supplyRate: BigDecimal!
+
+  "The factor determining interest that goes to reserves"
+  reserveFactor: BigDecimal!
 
   "Underlying token"
   denomination: Token!

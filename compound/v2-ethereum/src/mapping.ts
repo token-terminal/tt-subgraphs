@@ -5,7 +5,7 @@ import {
 } from "../generated/Comptroller/Comptroller";
 import { CToken as CTokenTemplate } from "../generated/templates";
 import { MarketListed } from "../generated/Comptroller/Comptroller";
-import { AccrueInterest } from "../generated/templates/CToken/CToken";
+import { AccrueInterest, NewReserveFactor } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { getOrCreateComptroller, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
 import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
@@ -75,8 +75,27 @@ export function handleAccrueInterest(event: AccrueInterest): void {
     market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32()).times(supplyRate);
   }
 
+  let reserveFactor = market.reserveFactor;
+
   let feesGenerated = amountToDenomination(interestAccumulated, token.decimals);
+  let protocolFeesGenerated = feesGenerated.times(reserveFactor);
 
   market.totalFeesGenerated = market.totalFeesGenerated.plus(feesGenerated);
+  market.totalProtocolFeesGenerated = market.totalProtocolFeesGenerated.plus(protocolFeesGenerated);
+  market.save();
+}
+
+export function handleNewReserveFactor(event: NewReserveFactor): void {
+  let reserveFactorMantissa = event.params.newReserveFactorMantissa
+  let marketAddress = event.address.toHexString()
+  
+  if (!isMarket(marketAddress)) {
+    return;
+  }
+
+  let market = getMarket(marketAddress);
+  let token = getOrCreateToken(market.denomination);
+
+  market.reserveFactor = amountToDenomination(reserveFactorMantissa, token.decimals);
   market.save();
 }
