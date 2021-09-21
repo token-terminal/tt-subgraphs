@@ -7,23 +7,10 @@ import { CToken as CTokenTemplate } from "../generated/templates";
 import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
-import { ComptrollerImplementationEvent } from "../generated/schema";
-import { getOrCreateComptroller, getOrCreateComptrollerImplementation, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
+import { getOrCreateComptroller, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
 import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
-
-export function handleNewImplementation(event: NewImplementation): void {
-  let newComptrollerImplementationEvent = new ComptrollerImplementationEvent(event.transaction.hash.toHexString());
-  
-  let newImplementation = event.params.newImplementation;
-
-  newComptrollerImplementationEvent.newImplementation = newImplementation;
-  newComptrollerImplementationEvent.save();
-
-  let comptroller = getOrCreateComptrollerImplementation(newImplementation.toHexString());
-  comptroller.save();
-}
 
 export function handleNewPriceOracle(event: NewPriceOracle): void {
   let comptroller = getOrCreateComptroller();

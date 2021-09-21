@@ -1,12 +1,3 @@
-type ComptrollerImplementationEvent @entity {
-  id: ID!
-  newImplementation: Bytes!
-}
-
-type ComptrollerImplementation @entity {
-  id: ID!
-}
-
 type Comptroller @entity {
   id: ID!
   priceOracle: Bytes!

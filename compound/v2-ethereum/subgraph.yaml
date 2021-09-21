@@ -14,7 +14,6 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - ComptrollerImplementation
         - Comptroller
         - Market
         - Token
@@ -26,8 +25,6 @@ dataSources:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
-        - event: NewImplementation(address,address)
-          handler: handleNewImplementation
         - event: NewPriceOracle(address,address)
           handler: handleNewPriceOracle
         - event: MarketListed(address)

@@ -1,17 +1,10 @@
 import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
-import { Comptroller, ComptrollerImplementation, Market, Token } from "../generated/schema";
+import { Comptroller, Market, Token } from "../generated/schema";
 import { ERC20 } from "../generated/templates/CToken/ERC20";
 
 export let ZERO_BD = BigDecimal.fromString("0");
 export let ZERO_BI = BigInt.fromString("0");
 
-export function getOrCreateComptrollerImplementation(id: string): ComptrollerImplementation {
-  let comptroller = ComptrollerImplementation.load(id);
-  if (comptroller == null) {
-      comptroller = new ComptrollerImplementation(id);
-  }
-  return comptroller as ComptrollerImplementation;
-}
 
 export function getOrCreateComptroller(): Comptroller {
   let comptroller = Comptroller.load("1");
