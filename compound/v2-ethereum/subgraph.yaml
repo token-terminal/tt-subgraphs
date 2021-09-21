@@ -17,11 +17,14 @@ dataSources:
         - ComptrollerImplementation
         - Comptroller
         - Market
+        - Token
       abis:
         - name: Comptroller
           file: ./abis/Comptroller.json
         - name: CToken
           file: ./abis/CToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: NewImplementation(address,address)
           handler: handleNewImplementation
@@ -43,6 +46,7 @@ templates:
       entities:
         - Market
         - CToken
+        - Token
         - ERC20
       abis:
         - name: CToken

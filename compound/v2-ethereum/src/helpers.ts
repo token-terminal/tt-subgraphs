@@ -1,5 +1,5 @@
 import { BigDecimal, BigInt, Address } from "@graphprotocol/graph-ts";
-import { Comptroller, ComptrollerImplementation, Market } from "../generated/schema";
+import { Comptroller, ComptrollerImplementation, Market, Token } from "../generated/schema";
 import { ERC20 } from "../generated/templates/CToken/ERC20";
 
 export let ZERO_BD = BigDecimal.fromString("0");
@@ -21,7 +21,7 @@ export function getOrCreateComptroller(): Comptroller {
   return comptroller as Comptroller;
 }
 
-export function getOrCreateMarket(id: string): Market {
+export function getOrCreateMarket(id: string, token: Token): Market {
   let market = Market.load(id);
   if (market == null) {
       market = new Market(id);
@@ -29,9 +29,23 @@ export function getOrCreateMarket(id: string): Market {
       market.totalBorrows = ZERO_BD;
       market.totalSupply = ZERO_BD;
       market.supplyRate = ZERO_BD;
-      market.denomination = null;
+      market.denomination = token.id;
   }
   return market as Market;
+}
+
+export function getOrCreateToken(id: string): Token {
+  let token = Token.load(id);
+  if (token == null) {
+      let tokenContract = ERC20.bind(Address.fromString(id));
+      token = new Token(id);
+      token.address = Address.fromString(id);
+      token.name = tokenContract.try_name().reverted ? null : tokenContract.try_name().value
+      token.symbol = tokenContract.try_symbol().reverted ? null : tokenContract.try_symbol().value
+      token.decimals = tokenContract.try_decimals().reverted ? null : tokenContract.try_decimals().value
+      token.totalSupply = tokenContract.try_totalSupply().reverted ? null : tokenContract.try_totalSupply().value
+  }
+  return token as Token;
 }
 
 export function getMarket(id: string): Market {

@@ -8,7 +8,7 @@ import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { ComptrollerImplementationEvent } from "../generated/schema";
-import { getOrCreateComptroller, getOrCreateComptrollerImplementation, getOrCreateMarket, getMarket, isMarket, getTokenDecimals, amountToDenomination, exponentToBigDecimal } from "./helpers";
+import { getOrCreateComptroller, getOrCreateComptrollerImplementation, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
 import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
@@ -39,17 +39,25 @@ export function handleMarketListed(event: MarketListed): void {
 
   let ctoken = CToken.bind(ctokenAddress);
 
-  let tryDenominaton = ctoken.try_underlying();
-  let market = getOrCreateMarket(ctokenAddress.toHexString());  
+  let tryDenomination = ctoken.try_underlying();
 
   if (ctokenAddress == Address.fromString(CETH_TOKEN_ADDRESS)) {
-    market.denomination = Address.fromString(WETH_TOKEN_ADDRESS);
+    let token = getOrCreateToken(WETH_TOKEN_ADDRESS);
+    token.save();
+
+    let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
+    market.denomination = token.id;
+    market.save();
   } else {
-    if (!tryDenominaton.reverted) {
-      market.denomination = tryDenominaton.value;
+    if (!tryDenomination.reverted) {
+      let token = getOrCreateToken(tryDenomination.value.toHexString());
+      token.save();
+
+      let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
+      market.denomination = token.id;
+      market.save();
     }
   }
-  market.save();
 }
 
 export function handleAccrueInterest(event: AccrueInterest): void {
@@ -61,7 +69,7 @@ export function handleAccrueInterest(event: AccrueInterest): void {
   }
 
   let market = getMarket(marketAddress);
-  let underlyingDecimals = getTokenDecimals(market.denomination as Address);
+  let token = getOrCreateToken(market.denomination);
 
   let ctoken = CToken.bind(Address.fromString(marketAddress));
   let tryTotalBorrows = ctoken.try_totalBorrows();
@@ -75,12 +83,12 @@ export function handleAccrueInterest(event: AccrueInterest): void {
       .toBigDecimal()
       .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
       .div(MANTISSA_FACTOR_EXP)
-    market.totalBorrows = amountToDenomination(tryTotalBorrows.value, underlyingDecimals);
+    market.totalBorrows = amountToDenomination(tryTotalBorrows.value, token.decimals);
     market.supplyRate = supplyRate;
     market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32()).times(supplyRate);
   }
 
-  let feesGenerated = amountToDenomination(interestAccumulated, underlyingDecimals);
+  let feesGenerated = amountToDenomination(interestAccumulated, token.decimals);
 
   market.totalFeesGenerated = market.totalFeesGenerated.plus(feesGenerated);
   market.save();

@@ -29,5 +29,14 @@ type Market @entity {
   supplyRate: BigDecimal!
 
   "Underlying token address"
-  denomination: Bytes!
+  denomination: Token!
+}
+
+type Token @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  totalSupply: BigInt!
 }
