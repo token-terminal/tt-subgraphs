@@ -1,5 +1,8 @@
 type Comptroller @entity {
+  "Comptroller address"
   id: ID!
+
+  "Active price oracle"
   priceOracle: Bytes!
 }
 
@@ -19,15 +22,26 @@ type Market @entity {
   "Yearly supply rate. With 2104400 blocks per year"
   supplyRate: BigDecimal!
 
-  "Underlying token address"
+  "Underlying token"
   denomination: Token!
 }
 
 type Token @entity {
+  "Token address"
   id: ID!
+
+  "Token address"
   address: Bytes!
+
+  "Token name"
   name: String!
+
+  "Token symbol"
   symbol: String!
+
+  "Token decimals"
   decimals: Int!
+
+  "Token's total supply"
   totalSupply: BigInt!
 }
