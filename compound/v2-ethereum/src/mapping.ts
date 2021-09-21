@@ -1,4 +1,4 @@
-import { Address } from "@graphprotocol/graph-ts";
+import { Address, BigDecimal } from "@graphprotocol/graph-ts";
 import {
   NewImplementation,
 } from "../generated/Comptroller/Comptroller";
@@ -7,8 +7,10 @@ import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { ComptrollerImplementationEvent } from "../generated/schema";
-import { getOrCreateComptrollerImplementation, getOrCreateMarket, getMarket, isMarket, getTokenDecimals, amountToDenomination } from "./helpers";
-import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS } from "./constants";
+import { getOrCreateComptrollerImplementation, getOrCreateMarket, getMarket, isMarket, getTokenDecimals, amountToDenomination, exponentToBigDecimal } from "./helpers";
+import { CETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
+
+let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
 
 export function handleNewImplementation(event: NewImplementation): void {
   let newComptrollerImplementationEvent = new ComptrollerImplementationEvent(event.transaction.hash.toHexString());
@@ -57,10 +59,17 @@ export function handleAccrueInterest(event: AccrueInterest): void {
   let tryTotalBorrows = ctoken.try_totalBorrows();
   let tryTotalSupply = ctoken.try_totalSupply();
   let tryCTokenDecimals = ctoken.try_decimals();
+  let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
 
-  if (!tryTotalBorrows.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted) {
+  if (!tryTotalBorrows.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted && !tryBorrowRatePerBlock.reverted) {
+    let supplyRate = tryBorrowRatePerBlock
+      .value
+      .toBigDecimal()
+      .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
+      .div(MANTISSA_FACTOR_EXP)
     market.totalBorrows = amountToDenomination(tryTotalBorrows.value, underlyingDecimals);
-    market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32());
+    market.supplyRate = supplyRate;
+    market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32()).times(supplyRate);
   }
 
   let feesGenerated = amountToDenomination(interestAccumulated, underlyingDecimals);

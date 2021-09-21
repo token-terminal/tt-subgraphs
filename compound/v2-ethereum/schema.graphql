@@ -17,8 +17,11 @@ type Market @entity {
   "Borrows in the market"
   totalBorrows: BigDecimal!
 
-  "CToken supply"
+  "Supply in the market"
   totalSupply: BigDecimal!
+
+  "Yearly supply rate. With 2104400 blocks per year"
+  supplyRate: BigDecimal!
 
   "Underlying token address"
   denomination: Bytes!

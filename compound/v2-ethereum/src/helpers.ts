@@ -20,6 +20,7 @@ export function getOrCreateMarket(id: string): Market {
       market.totalFeesGenerated = ZERO_BD;
       market.totalBorrows = ZERO_BD;
       market.totalSupply = ZERO_BD;
+      market.supplyRate = ZERO_BD;
       market.denomination = null;
   }
   return market as Market;
@@ -41,4 +42,12 @@ export function getTokenDecimals(tokenAddress: Address): i32 {
   let token = ERC20.bind(tokenAddress);
   let result = token.try_decimals();
   return result.reverted ? 0 : result.value;
+}
+
+export function exponentToBigDecimal(decimals: i32): BigDecimal {
+  let bd = BigDecimal.fromString('1')
+  for (let i = 0; i < decimals; i++) {
+    bd = bd.times(BigDecimal.fromString('10'))
+  }
+  return bd
 }
