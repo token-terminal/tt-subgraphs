@@ -44,7 +44,6 @@ export function handleMarketListed(event: MarketListed): void {
 
 export function handleAccrueInterest(event: AccrueInterest): void {
   let interestAccumulated = event.params.interestAccumulated;
-  let totalBorrows = event.params.totalBorrows;
   let marketAddress = event.address.toHexString()
 
   if (!isMarket(marketAddress)) {
@@ -52,12 +51,20 @@ export function handleAccrueInterest(event: AccrueInterest): void {
   }
 
   let market = getMarket(marketAddress);
-
   let underlyingDecimals = getTokenDecimals(market.denomination as Address);
+
+  let ctoken = CToken.bind(Address.fromString(marketAddress));
+  let tryTotalBorrows = ctoken.try_totalBorrows();
+  let tryTotalSupply = ctoken.try_totalSupply();
+  let tryCTokenDecimals = ctoken.try_decimals();
+
+  if (!tryTotalBorrows.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted) {
+    market.totalBorrows = amountToDenomination(tryTotalBorrows.value, underlyingDecimals);
+    market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32());
+  }
+
   let feesGenerated = amountToDenomination(interestAccumulated, underlyingDecimals);
-  let borrows = amountToDenomination(totalBorrows, underlyingDecimals);
 
   market.totalFeesGenerated = market.totalFeesGenerated.plus(feesGenerated);
-  market.totalBorrows = borrows;
   market.save();
 }

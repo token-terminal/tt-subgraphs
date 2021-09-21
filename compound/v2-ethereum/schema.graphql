@@ -8,8 +8,18 @@ type ComptrollerImplementation @entity {
 }
 
 type Market @entity {
+  "CToken address"
   id: ID!
+
+  "Total interest accrued."
   totalFeesGenerated: BigDecimal!
+
+  "Borrows in the market"
   totalBorrows: BigDecimal!
+
+  "CToken supply"
+  totalSupply: BigDecimal!
+
+  "Underlying token address"
   denomination: Bytes!
 }
