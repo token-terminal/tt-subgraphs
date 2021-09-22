@@ -63,16 +63,26 @@ export function handleAccrueInterest(event: AccrueInterest): void {
   let tryTotalSupply = ctoken.try_totalSupply();
   let tryCTokenDecimals = ctoken.try_decimals();
   let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
+  let tryExchangeRateStored = ctoken.try_exchangeRateStored();
 
-  if (!tryTotalBorrows.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted && !tryBorrowRatePerBlock.reverted) {
+  if (!tryTotalBorrows.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted && !tryBorrowRatePerBlock.reverted && !tryExchangeRateStored.reverted) {
     let supplyRate = tryBorrowRatePerBlock
       .value
       .toBigDecimal()
       .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
       .div(MANTISSA_FACTOR_EXP)
+    
+    let exchangeRate = tryExchangeRateStored
+      .value
+      .toBigDecimal()
+      .div(exponentToBigDecimal(token.decimals))
+      .times(exponentToBigDecimal(tryCTokenDecimals.value.toI32()))
+      .div(MANTISSA_FACTOR_EXP)
+
     market.totalBorrows = amountToDenomination(tryTotalBorrows.value, token.decimals);
     market.supplyRate = supplyRate;
-    market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32()).times(supplyRate);
+    market.exchangeRate = exchangeRate;
+    market.totalSupply = amountToDenomination(tryTotalSupply.value, tryCTokenDecimals.value.toI32()).times(exchangeRate);
   }
 
   let reserveFactor = market.reserveFactor;
@@ -94,8 +104,7 @@ export function handleNewReserveFactor(event: NewReserveFactor): void {
   }
 
   let market = getMarket(marketAddress);
-  let token = getOrCreateToken(market.denomination);
 
-  market.reserveFactor = amountToDenomination(reserveFactorMantissa, token.decimals);
+  market.reserveFactor = amountToDenomination(reserveFactorMantissa, MANTISSA_FACTOR);
   market.save();
 }

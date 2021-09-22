@@ -23,6 +23,7 @@ export function getOrCreateMarket(id: string, token: Token): Market {
       market.totalBorrows = ZERO_BD;
       market.totalSupply = ZERO_BD;
       market.supplyRate = ZERO_BD;
+      market.exchangeRate = ZERO_BD;
       market.reserveFactor = ZERO_BD;
       market.denomination = token.id;
   }
