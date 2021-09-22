@@ -17,6 +17,7 @@ import {
 } from '../generated/Registry7/Vault';
 import { NewVaultEvent, NewExperimentalVaultEvent, StrategyAddedEvent, StrategyAdded_v0_3_0_v0_3_1Event, StrategyReportedEvent, StrategyReported_v0_3_0_v0_3_1Event, TransferEvent } from "../generated/schema"
 import { getOrCreateVault, loadVault, isVault, getOrCreateStrategy, isStrategy, getOrCreateToken, getTokenDecimals, amountToDenomination, } from "./helpers";
+import { EXCLUDED_TRANSACTIONS } from "./constants";
 
 let BASIS_POINTS_BD = BigDecimal.fromString("10000");
 
@@ -156,6 +157,12 @@ export function handleStrategyAdded_v0_3_0_v0_3_1(event: StrategyAdded): void {
 }
 
 export function handleStrategyReported(event: StrategyReported1): void {
+  let transactionHash = event.transaction.hash;
+
+  if (EXCLUDED_TRANSACTIONS.includes(transactionHash.toHexString())) {
+    return
+  }
+
   let strategyReported = new StrategyReportedEvent(event.transaction.hash.toHexString());
   let timestamp = event.block.timestamp.toI32();
   let debtAdded = event.params.debtAdded;
@@ -199,6 +206,12 @@ export function handleStrategyReported(event: StrategyReported1): void {
 }
 
 export function handleStrategyReported_v0_3_0_v0_3_1(event: StrategyReported): void {
+  let transactionHash = event.transaction.hash;
+
+  if (EXCLUDED_TRANSACTIONS.includes(transactionHash.toHexString())) {
+    return
+  }
+
   let strategyReported = new StrategyReported_v0_3_0_v0_3_1Event(event.transaction.hash.toHexString());
   let timestamp = event.block.timestamp.toI32();
   let debtAdded = event.params.debtAdded;
@@ -244,6 +257,12 @@ export function handleStrategyReported_v0_3_0_v0_3_1(event: StrategyReported): v
 }
 
 export function handleTransfer(event: Transfer): void {
+  let transactionHash = event.transaction.hash;
+
+  if (EXCLUDED_TRANSACTIONS.includes(transactionHash.toHexString())) {
+    return
+  }
+
   let transfer = new TransferEvent(event.transaction.hash.toHexString());
   let timestamp = event.block.timestamp.toI32();
   let sender = event.params.sender;
