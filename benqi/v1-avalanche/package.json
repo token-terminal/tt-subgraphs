@@ -1,0 +1,16 @@
+{
+  "name": "benqi-v1-avalanche",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ token-terminal/benqi-v1-avalanche",
+    "create-local": "graph create --node http://localhost:8020/ token-terminal/benqi-v1-avalanche",
+    "remove-local": "graph remove --node http://localhost:8020/ token-terminal/benqi-v1-avalanche",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/benqi-v1-avalanche"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.20.1",
+    "@graphprotocol/graph-ts": "0.20.0"
+  }
+}

@@ -1,0 +1,56 @@
+type Comptroller @entity {
+  "Comptroller address"
+  id: ID!
+
+  "Active price oracle"
+  priceOracle: Bytes!
+}
+
+type Market @entity {
+  "CToken address"
+  id: ID!
+
+  "Total interest accrued"
+  totalFeesGenerated: BigDecimal!
+
+  "The part of total fees that goes to the protocol"
+  totalProtocolFeesGenerated: BigDecimal!
+
+  "Borrows in the market"
+  totalBorrows: BigDecimal!
+
+  "Supply in the market"
+  totalSupply: BigDecimal!
+
+  "Yearly supply rate. With 2104400 blocks per year"
+  supplyRate: BigDecimal!
+
+  "Exchange rate between CToken and underlying token"
+  exchangeRate: BigDecimal!
+
+  "The factor determining interest that goes to reserves"
+  reserveFactor: BigDecimal!
+
+  "Underlying token"
+  denomination: Token!
+}
+
+type Token @entity {
+  "Token address"
+  id: ID!
+
+  "Token address"
+  address: Bytes!
+
+  "Token name"
+  name: String!
+
+  "Token symbol"
+  symbol: String!
+
+  "Token decimals"
+  decimals: Int!
+
+  "Token's total supply"
+  totalSupply: BigInt!
+}
