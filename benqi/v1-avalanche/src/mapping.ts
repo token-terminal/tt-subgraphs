@@ -27,13 +27,17 @@ export function handleMarketListed(event: MarketListed): void {
   let ctoken = CToken.bind(ctokenAddress);
 
   let tryDenomination = ctoken.try_underlying();
+  let tryName = ctoken.try_name();
+  let trySymbol = ctoken.try_symbol();
 
-  if (!tryDenomination.reverted) {
+  if (!tryDenomination.reverted && !tryName.reverted && !trySymbol.reverted) {
     let token = getOrCreateToken(tryDenomination.value.toHexString());
     token.save();
 
     let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
     market.denomination = token.id;
+    market.name = tryName.value;
+    market.symbol = trySymbol.value;
     market.save();
   }
 }

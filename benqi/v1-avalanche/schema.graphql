@@ -10,6 +10,12 @@ type Market @entity {
   "CToken address"
   id: ID!
 
+  "CToken name"
+  name: String!
+
+  "CToken symbol"
+  symbol: String!
+
   "Total interest accrued"
   totalFeesGenerated: BigDecimal!
 
@@ -22,7 +28,7 @@ type Market @entity {
   "Supply in the market"
   totalSupply: BigDecimal!
 
-  "Yearly supply rate. With 2104400 blocks per year"
+  "Yearly supply rate. With 31566000 seconds per year"
   supplyRate: BigDecimal!
 
   "Exchange rate between CToken and underlying token"

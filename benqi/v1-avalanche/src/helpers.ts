@@ -26,6 +26,8 @@ export function getOrCreateMarket(id: string, token: Token): Market {
       market.exchangeRate = ZERO_BD;
       market.reserveFactor = ZERO_BD;
       market.denomination = token.id;
+      market.name = "";
+      market.symbol = "";
   }
   return market as Market;
 }
