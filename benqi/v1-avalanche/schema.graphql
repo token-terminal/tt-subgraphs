@@ -1,19 +1,22 @@
 type Comptroller @entity {
-  "Comptroller address"
+  "Default ID"
   id: ID!
+
+  "Comptroller address"
+  address: Bytes!
 
   "Active price oracle"
   priceOracle: Bytes!
 }
 
 type Market @entity {
-  "CToken address"
+  "QIToken address"
   id: ID!
 
-  "CToken name"
+  "QIToken name"
   name: String!
 
-  "CToken symbol"
+  "QIToken symbol"
   symbol: String!
 
   "Total interest accrued"
@@ -31,7 +34,7 @@ type Market @entity {
   "Yearly supply rate. With 31566000 seconds per year"
   supplyRate: BigDecimal!
 
-  "Exchange rate between CToken and underlying token"
+  "Exchange rate between QIToken and underlying token"
   exchangeRate: BigDecimal!
 
   "The factor determining interest that goes to reserves"

@@ -1,6 +1,5 @@
 import { Address, BigDecimal } from "@graphprotocol/graph-ts";
 import {
-  NewImplementation,
   NewPriceOracle
 } from "../generated/Comptroller/Comptroller";
 import { CToken as CTokenTemplate } from "../generated/templates";
