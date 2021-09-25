@@ -39,7 +39,7 @@ export function handleMarketListed(event: MarketListed): void {
     market.symbol = "qiAVAX";
     market.save();
   } else {
-    if (!tryDenomination.reverted && !tryName.reverted && trySymbol.reverted) {
+    if (!tryDenomination.reverted && !tryName.reverted && !trySymbol.reverted) {
       let token = getOrCreateToken(tryDenomination.value.toHexString());
       token.save();
 
