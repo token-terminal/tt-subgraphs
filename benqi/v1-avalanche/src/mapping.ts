@@ -8,7 +8,7 @@ import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest, NewReserveFactor } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { getOrCreateComptroller, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
-import { YEARLY_BORROW_RATE, MANTISSA_FACTOR } from "./constants";
+import { YEARLY_BORROW_RATE, MANTISSA_FACTOR, QIAVAX_TOKEN_ADDRESS, WAVAX_TOKEN_ADDRESS } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
 
@@ -30,15 +30,26 @@ export function handleMarketListed(event: MarketListed): void {
   let tryName = ctoken.try_name();
   let trySymbol = ctoken.try_symbol();
 
-  if (!tryDenomination.reverted && !tryName.reverted && !trySymbol.reverted) {
-    let token = getOrCreateToken(tryDenomination.value.toHexString());
+  if (ctokenAddress == Address.fromString(QIAVAX_TOKEN_ADDRESS)) {
+    let token = getOrCreateToken(WAVAX_TOKEN_ADDRESS);
     token.save();
 
     let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
     market.denomination = token.id;
-    market.name = tryName.value;
-    market.symbol = trySymbol.value;
+    market.name = "Benqi AVAX";
+    market.symbol = "qiAVAX";
     market.save();
+  } else {
+    if (!tryDenomination.reverted && !tryName.reverted && trySymbol.reverted) {
+      let token = getOrCreateToken(tryDenomination.value.toHexString());
+      token.save();
+
+      let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
+      market.denomination = token.id;
+      market.name = tryName.value;
+      market.symbol = trySymbol.value;
+      market.save();
+    }
   }
 }
 
