@@ -28,8 +28,9 @@ export function handleMarketListed(event: MarketListed): void {
   let tryDenomination = ctoken.try_underlying();
   let tryName = ctoken.try_name();
   let trySymbol = ctoken.try_symbol();
+  let tryReserveFactorMantissa = ctoken.try_reserveFactorMantissa();
 
-  if (ctokenAddress == Address.fromString(QIAVAX_TOKEN_ADDRESS)) {
+  if (ctokenAddress == Address.fromString(QIAVAX_TOKEN_ADDRESS) && !tryReserveFactorMantissa.reverted) {
     let token = getOrCreateToken(WAVAX_TOKEN_ADDRESS);
     token.save();
 
@@ -37,18 +38,21 @@ export function handleMarketListed(event: MarketListed): void {
     market.denomination = token.id;
     market.name = "Benqi AVAX";
     market.symbol = "qiAVAX";
+    market.reserveFactor = amountToDenomination(tryReserveFactorMantissa.value, MANTISSA_FACTOR);
     market.save();
-  } else {
-    if (!tryDenomination.reverted && !tryName.reverted && !trySymbol.reverted) {
-      let token = getOrCreateToken(tryDenomination.value.toHexString());
-      token.save();
+    return;
+  }
 
-      let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
-      market.denomination = token.id;
-      market.name = tryName.value;
-      market.symbol = trySymbol.value;
-      market.save();
-    }
+  if (!tryDenomination.reverted && !tryName.reverted && !trySymbol.reverted && !tryReserveFactorMantissa.reverted) {
+    let token = getOrCreateToken(tryDenomination.value.toHexString());
+    token.save();
+
+    let market = getOrCreateMarket(ctokenAddress.toHexString(), token);
+    market.denomination = token.id;
+    market.name = tryName.value;
+    market.symbol = trySymbol.value;
+    market.reserveFactor = amountToDenomination(tryReserveFactorMantissa.value, MANTISSA_FACTOR);
+    market.save();
   }
 }
 
