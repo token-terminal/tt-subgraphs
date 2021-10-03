@@ -36,10 +36,10 @@ export function getOrCreateToken(id: string): Token {
       let tokenContract = ERC20.bind(Address.fromString(id));
       token = new Token(id);
       token.address = Address.fromString(id);
-      token.name = tokenContract.try_name().reverted ? null : tokenContract.try_name().value
-      token.symbol = tokenContract.try_symbol().reverted ? null : tokenContract.try_symbol().value
-      token.decimals = tokenContract.try_decimals().reverted ? null : tokenContract.try_decimals().value
-      token.totalSupply = tokenContract.try_totalSupply().reverted ? null : tokenContract.try_totalSupply().value
+      token.name = tokenContract.try_name().reverted ? '' : tokenContract.try_name().value
+      token.symbol = tokenContract.try_symbol().reverted ? '' : tokenContract.try_symbol().value
+      token.decimals = tokenContract.try_decimals().reverted ? 18 : tokenContract.try_decimals().value
+      token.totalSupply = tokenContract.try_totalSupply().reverted ? ZERO_BI : tokenContract.try_totalSupply().value
   }
   return token as Token;
 }
