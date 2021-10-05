@@ -194,7 +194,7 @@ export function handleStrategyReported(event: StrategyReported1): void {
   let tryTotalAssets = vaultContract.try_totalAssets();
   let tryTotalDebt = vaultContract.try_totalDebt();
 
-  if (!tryPricePerShare && !tryTotalAssets && !tryTotalDebt) {
+  if (!tryPricePerShare.reverted && !tryTotalAssets.reverted && !tryTotalDebt.reverted) {
     vault.totalDebt = amountToDenomination(tryTotalDebt.value, token.decimals).div(amountToDenomination(tryPricePerShare.value, token.decimals));
     vault.totalAssets = amountToDenomination(tryTotalAssets.value, token.decimals).div(amountToDenomination(tryPricePerShare.value, token.decimals));
   }
@@ -245,7 +245,7 @@ export function handleStrategyReported_v0_3_0_v0_3_1(event: StrategyReported): v
   let tryTotalAssets = vaultContract.try_totalAssets();
   let tryTotalDebt = vaultContract.try_totalDebt();
 
-  if (!tryPricePerShare && !tryTotalAssets && !tryTotalDebt) {
+  if (!tryPricePerShare.reverted && !tryTotalAssets.reverted && !tryTotalDebt.reverted) {
     vault.totalDebt = amountToDenomination(tryTotalDebt.value, token.decimals).div(amountToDenomination(tryPricePerShare.value, token.decimals));
     vault.totalAssets = amountToDenomination(tryTotalAssets.value, token.decimals).div(amountToDenomination(tryPricePerShare.value, token.decimals));
   }
