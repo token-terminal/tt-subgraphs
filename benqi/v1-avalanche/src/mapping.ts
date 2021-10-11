@@ -7,7 +7,7 @@ import { MarketListed } from "../generated/Comptroller/Comptroller";
 import { AccrueInterest, NewReserveFactor } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import { getOrCreateComptroller, getOrCreateMarket, getOrCreateToken, getMarket, isMarket, amountToDenomination, exponentToBigDecimal } from "./helpers";
-import { YEARLY_BORROW_RATE, MANTISSA_FACTOR, QIAVAX_TOKEN_ADDRESS, WAVAX_TOKEN_ADDRESS } from "./constants";
+import { MANTISSA_FACTOR, QIAVAX_TOKEN_ADDRESS, WAVAX_TOKEN_ADDRESS } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);
 
@@ -78,14 +78,12 @@ export function handleAccrueInterest(event: AccrueInterest): void {
     let supplyRate = tryBorrowRatePerTimestamp
       .value
       .toBigDecimal()
-      .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
       .div(MANTISSA_FACTOR_EXP)
     
     let exchangeRate = tryExchangeRateStored
       .value
       .toBigDecimal()
       .div(exponentToBigDecimal(token.decimals))
-      .times(exponentToBigDecimal(tryCTokenDecimals.value))
       .div(MANTISSA_FACTOR_EXP)
 
     market.totalBorrows = amountToDenomination(tryTotalBorrows.value, token.decimals);

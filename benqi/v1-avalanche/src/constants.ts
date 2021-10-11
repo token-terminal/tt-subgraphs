@@ -1,4 +1,3 @@
-export const YEARLY_BORROW_RATE = "31536000";
 export const MANTISSA_FACTOR = 18;
 export const QIAVAX_TOKEN_ADDRESS = "0x5c0401e81bc07ca70fad469b451682c0d747ef1c";
 export const WAVAX_TOKEN_ADDRESS = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7";
