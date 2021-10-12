@@ -27,20 +27,12 @@ export function getOrCreateToken(id: string): Token {
       let tokenContract = ERC20.bind(Address.fromString(id));
       token = new Token(id);
       token.address = Address.fromString(id);
-      token.name = tokenContract.try_name().reverted ? null : tokenContract.try_name().value
-      token.symbol = tokenContract.try_symbol().reverted ? null : tokenContract.try_symbol().value
-      token.decimals = tokenContract.try_decimals().reverted ? null : tokenContract.try_decimals().value
-      token.totalSupply = tokenContract.try_totalSupply().reverted ? null : tokenContract.try_totalSupply().value
+      token.name = tokenContract.try_name().reverted ? '' : tokenContract.try_name().value
+      token.symbol = tokenContract.try_symbol().reverted ? '' : tokenContract.try_symbol().value
+      token.decimals = tokenContract.try_decimals().reverted ? 18 : tokenContract.try_decimals().value
+      token.totalSupply = tokenContract.try_totalSupply().reverted ? ZERO_BI : tokenContract.try_totalSupply().value
   }
   return token as Token;
-}
-
-export function loadVault(id: string): Vault {
-  return Vault.load(id) as Vault;
-}
-
-export function isVault(id: string): boolean {
-  return loadVault(id) !== null;
 }
 
 export function getOrCreateStrategy(id: string, vault: Vault): Strategy {
@@ -50,14 +42,6 @@ export function getOrCreateStrategy(id: string, vault: Vault): Strategy {
       strategy.vault = vault.id;
   }
   return strategy as Strategy;
-}
-
-export function loadStrategy(id: string): Strategy {
-  return Strategy.load(id) as Strategy;
-}
-
-export function isStrategy(id: string): boolean {
-  return loadStrategy(id) !== null;
 }
 
 export function amountToDenomination(amount: BigInt, decimals: i32): BigDecimal {

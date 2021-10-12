@@ -15,8 +15,9 @@ import {
   StrategyReported1,
   Transfer
 } from '../generated/Registry7/Vault';
+import { Vault as VaultSchema, Strategy as StrategySchema, Token as TokenSchema } from "../generated/schema";
 import { NewVaultEvent, NewExperimentalVaultEvent, StrategyAddedEvent, StrategyAdded_v0_3_0_v0_3_1Event, StrategyReportedEvent, StrategyReported_v0_3_0_v0_3_1Event, TransferEvent } from "../generated/schema"
-import { getOrCreateVault, loadVault, isVault, getOrCreateStrategy, isStrategy, getOrCreateToken, getTokenDecimals, amountToDenomination, } from "./helpers";
+import { getOrCreateVault, getOrCreateStrategy, getOrCreateToken, getTokenDecimals, amountToDenomination, } from "./helpers";
 import { EXCLUDED_TRANSACTIONS } from "./constants";
 
 let BASIS_POINTS_BD = BigDecimal.fromString("10000");
@@ -125,7 +126,10 @@ export function handleStrategyAdded(event: StrategyAdded1): void {
   newStrategyAdded.strategyAddress = strategyAddress;
   newStrategyAdded.save();
 
-  let vault = loadVault(vaultAddress.toHexString());
+  let vault = VaultSchema.load(vaultAddress.toHexString())
+  if (vault == null) {
+    return;
+  }
   let strategy = getOrCreateStrategy(strategyAddress.toHexString(), vault);
   strategy.save();
 
@@ -149,7 +153,10 @@ export function handleStrategyAdded_v0_3_0_v0_3_1(event: StrategyAdded): void {
   newStrategyAdded.strategyAddress = strategyAddress;
   newStrategyAdded.save();
 
-  let vault = loadVault(vaultAddress.toHexString());
+  let vault = VaultSchema.load(vaultAddress.toHexString())
+  if (vault == null) {
+    return;
+  }
   let strategy = getOrCreateStrategy(strategyAddress.toHexString(), vault);
   strategy.save();
 
@@ -184,7 +191,10 @@ export function handleStrategyReported(event: StrategyReported1): void {
   strategyReported.save();
 
   let vaultContract = Vault.bind(event.address);
-  let vault = loadVault(event.address.toHexString());
+  let vault = VaultSchema.load(event.address.toHexString())
+  if (vault == null) {
+    return;
+  }
   let token = getOrCreateToken(vault.denomination);
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
@@ -235,7 +245,10 @@ export function handleStrategyReported_v0_3_0_v0_3_1(event: StrategyReported): v
   strategyReported.save();
 
   let vaultContract = Vault.bind(event.address);
-  let vault = loadVault(event.address.toHexString());
+  let vault = VaultSchema.load(event.address.toHexString())
+  if (vault == null) {
+    return;
+  }
   let token = getOrCreateToken(vault.denomination);
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
@@ -275,35 +288,40 @@ export function handleTransfer(event: Transfer): void {
   transfer.amount = amount;
   transfer.save();
 
-  if (isVault(sender.toHexString())) {
-    let vault = loadVault(sender.toHexString());
-    let vaultContract = Vault.bind(sender);
-    let rewards = vaultContract.rewards();
-
-    let decimals = getTokenDecimals(vaultContract.token());
-    let tryPricePerShare = vaultContract.try_pricePerShare();
-
-    if (tryPricePerShare.reverted) {
-      return;
-    }
-
-    let pricePerShare = amountToDenomination(vaultContract.pricePerShare(), decimals);
-
-    // Check if receiver is the same as the rewards contract of the Vault.
-    if (receiver == rewards) {
-      let managementFeeGenerated = amountToDenomination(amount, decimals).div(pricePerShare);
-
-      vault.totalManagementFeesGenerated = vault.totalManagementFeesGenerated.plus(managementFeeGenerated);
-      vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(managementFeeGenerated);
-      vault.save();
-    }
-
-    if (isStrategy(receiver.toHexString())) {
-      let strategistFeesGenerated = amountToDenomination(amount, decimals).div(pricePerShare);
-
-      vault.totalStrategistPerformanceFeesGenerated = vault.totalStrategistPerformanceFeesGenerated.plus(strategistFeesGenerated);
-      vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(strategistFeesGenerated);
-      vault.save();
-    }
+  let vault = VaultSchema.load(sender.toHexString())
+  if (vault == null) {
+    return;
   }
+
+  let vaultContract = Vault.bind(sender);
+  let rewards = vaultContract.rewards();
+
+  let decimals = getTokenDecimals(vaultContract.token());
+  let tryPricePerShare = vaultContract.try_pricePerShare();
+
+  if (tryPricePerShare.reverted) {
+    return;
+  }
+
+  let pricePerShare = amountToDenomination(vaultContract.pricePerShare(), decimals);
+
+  // Check if receiver is the same as the rewards contract of the Vault.
+  if (receiver == rewards) {
+    let managementFeeGenerated = amountToDenomination(amount, decimals).div(pricePerShare);
+
+    vault.totalManagementFeesGenerated = vault.totalManagementFeesGenerated.plus(managementFeeGenerated);
+    vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(managementFeeGenerated);
+    vault.save();
+  }
+
+  let strategy = StrategySchema.load(receiver.toHexString())
+  if (strategy == null) {
+    return;
+  }
+
+  let strategistFeesGenerated = amountToDenomination(amount, decimals).div(pricePerShare);
+
+  vault.totalStrategistPerformanceFeesGenerated = vault.totalStrategistPerformanceFeesGenerated.plus(strategistFeesGenerated);
+  vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(strategistFeesGenerated);
+  vault.save();
 }
