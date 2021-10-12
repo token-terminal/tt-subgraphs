@@ -10,6 +10,9 @@ type Market @entity {
   "CToken address"
   id: ID!
 
+  "CToken symbol"
+  symbol: String!
+
   "Total interest accrued"
   totalFeesGenerated: BigDecimal!
 

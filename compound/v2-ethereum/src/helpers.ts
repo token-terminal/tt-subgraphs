@@ -18,6 +18,7 @@ export function getOrCreateMarket(id: string, token: Token): Market {
   let market = Market.load(id);
   if (market == null) {
       market = new Market(id);
+      market.symbol = "";
       market.totalFeesGenerated = ZERO_BD;
       market.totalProtocolFeesGenerated = ZERO_BD;
       market.totalBorrows = ZERO_BD;
