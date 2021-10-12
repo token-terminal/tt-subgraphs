@@ -5,7 +5,7 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ token-terminal/compound-v2-ethereum",
-    "deploy:studio": "graph deploy --version-label v0.0.1 --studio compound-v2-ethereum",
+    "deploy:studio": "graph deploy --version-label v0.0.2 --studio compound-v2-ethereum",
     "create-local": "graph create --node http://localhost:8020/ token-terminal/compound-v2-ethereum",
     "remove-local": "graph remove --node http://localhost:8020/ token-terminal/compound-v2-ethereum",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/compound-v2-ethereum"
