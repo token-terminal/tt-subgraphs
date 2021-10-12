@@ -469,6 +469,17 @@
   {
     "anonymous": false,
     "inputs": [
+      { "indexed": false, "name": "cashPrior", "type": "uint256" },
+      { "indexed": false, "name": "interestAccumulated", "type": "uint256" },
+      { "indexed": false, "name": "borrowIndex", "type": "uint256" },
+      { "indexed": false, "name": "totalBorrows", "type": "uint256" }
+    ],
+    "name": "AccrueInterest",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       { "indexed": false, "name": "minter", "type": "address" },
       { "indexed": false, "name": "mintAmount", "type": "uint256" },
       { "indexed": false, "name": "mintTokens", "type": "uint256" }

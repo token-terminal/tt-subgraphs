@@ -52,7 +52,9 @@ templates:
           file: ./abis/ERC20.json
       eventHandlers:
         - event: AccrueInterest(uint256,uint256,uint256)
-          handler: handleAccrueInterest
+          handler: handleAccrueInterest0
+        - event: AccrueInterest(uint256,uint256,uint256,uint256)
+          handler: handleAccrueInterest1
         - event: NewReserveFactor(uint256,uint256)
           handler: handleNewReserveFactor
       file: ./src/mapping.ts
