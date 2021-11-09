@@ -1,6 +1,6 @@
 {
   "name": "ens-v1-ethereum",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
