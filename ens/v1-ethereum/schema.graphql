@@ -1,0 +1,5 @@
+type Global @entity {
+  id: ID!
+  registrationFees: BigDecimal!
+  renewalFees: BigDecimal!
+}
