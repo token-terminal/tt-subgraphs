@@ -1,11 +1,11 @@
 import {
   NameRegistered,
-  NameRenewed,
+  NameRenewed
 } from "../generated/EthRegistrarController/EthRegistrarController";
 import {
   getOrCreateGlobal,
   getOrCreateToken,
-  exponentToBigDecimal,
+  exponentToBigDecimal
 } from "./helpers";
 import { WEI_DECIMALS, WETH_TOKEN_ADDRESS } from "./constants";
 

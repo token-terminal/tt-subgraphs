@@ -8,8 +8,8 @@
     "create-local": "graph create --node http://localhost:8020/ token-terminal/ens-v1-ethereum",
     "remove-local": "graph remove --node http://localhost:8020/ token-terminal/ens-v1-ethereum",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/ens-v1-ethereum",
-    "format": "prettier --write src/",
-    "test-format": "prettier -c src/"
+    "format": "prettier --write src/*",
+    "test-format": "prettier -c src/*"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.23.1",
