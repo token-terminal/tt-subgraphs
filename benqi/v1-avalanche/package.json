@@ -7,10 +7,15 @@
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ token-terminal/benqi-v1-avalanche",
     "create-local": "graph create --node http://localhost:8020/ token-terminal/benqi-v1-avalanche",
     "remove-local": "graph remove --node http://localhost:8020/ token-terminal/benqi-v1-avalanche",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/benqi-v1-avalanche"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/benqi-v1-avalanche",
+    "format": "prettier --write src/*",
+    "test-format": "prettier -c src/*"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.1",
     "@graphprotocol/graph-ts": "0.20.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.4.1"
   }
 }
