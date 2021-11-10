@@ -19,6 +19,8 @@ dataSources:
       abis:
         - name: EthRegistrarController
           file: ./abis/EthRegistrarController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
           handler: handleNameRegistered

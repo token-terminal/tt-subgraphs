@@ -2,4 +2,16 @@ type Global @entity {
   id: ID!
   registrationFees: BigDecimal!
   renewalFees: BigDecimal!
+
+  "Fees denomination"
+  denomination: Token!
+}
+
+type Token @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  totalSupply: BigInt!
 }
