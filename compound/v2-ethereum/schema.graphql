@@ -22,6 +22,9 @@ type Market @entity {
   "Borrows in the market"
   totalBorrows: BigDecimal!
 
+  "Reserves in the market"
+  totalReserves: BigDecimal!
+
   "Supply in the market"
   totalSupply: BigDecimal!
 
