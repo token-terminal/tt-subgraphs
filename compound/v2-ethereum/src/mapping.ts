@@ -86,22 +86,33 @@ export function handleAccrueInterest0(event: AccrueInterest0): void {
   let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
   let tryExchangeRateStored = ctoken.try_exchangeRateStored();
 
-  if (!tryTotalBorrows.reverted && !tryTotalReserves.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted && !tryBorrowRatePerBlock.reverted && !tryExchangeRateStored.reverted) {
-    let supplyRate = tryBorrowRatePerBlock
-      .value
+  if (
+    !tryTotalBorrows.reverted &&
+    !tryTotalReserves.reverted &&
+    !tryTotalSupply.reverted &&
+    !tryCTokenDecimals.reverted &&
+    !tryBorrowRatePerBlock.reverted &&
+    !tryExchangeRateStored.reverted
+  ) {
+    let supplyRate = tryBorrowRatePerBlock.value
       .toBigDecimal()
       .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
-      .div(MANTISSA_FACTOR_EXP)
+      .div(MANTISSA_FACTOR_EXP);
 
-    let exchangeRate = tryExchangeRateStored
-      .value
+    let exchangeRate = tryExchangeRateStored.value
       .toBigDecimal()
       .div(exponentToBigDecimal(token.decimals))
       .times(exponentToBigDecimal(tryCTokenDecimals.value.toI32()))
       .div(MANTISSA_FACTOR_EXP);
 
-    market.totalBorrows = amountToDenomination(tryTotalBorrows.value, token.decimals);
-    market.totalReserves = amountToDenomination(tryTotalReserves.value, token.decimals);
+    market.totalBorrows = amountToDenomination(
+      tryTotalBorrows.value,
+      token.decimals
+    );
+    market.totalReserves = amountToDenomination(
+      tryTotalReserves.value,
+      token.decimals
+    );
     market.supplyRate = supplyRate;
     market.exchangeRate = exchangeRate;
     market.totalSupply = amountToDenomination(
@@ -141,22 +152,33 @@ export function handleAccrueInterest1(event: AccrueInterest1): void {
   let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
   let tryExchangeRateStored = ctoken.try_exchangeRateStored();
 
-  if (!tryTotalBorrows.reverted && !tryTotalReserves.reverted && !tryTotalSupply.reverted && !tryCTokenDecimals.reverted && !tryBorrowRatePerBlock.reverted && !tryExchangeRateStored.reverted) {
-    let supplyRate = tryBorrowRatePerBlock
-      .value
+  if (
+    !tryTotalBorrows.reverted &&
+    !tryTotalReserves.reverted &&
+    !tryTotalSupply.reverted &&
+    !tryCTokenDecimals.reverted &&
+    !tryBorrowRatePerBlock.reverted &&
+    !tryExchangeRateStored.reverted
+  ) {
+    let supplyRate = tryBorrowRatePerBlock.value
       .toBigDecimal()
       .times(BigDecimal.fromString(YEARLY_BORROW_RATE))
-      .div(MANTISSA_FACTOR_EXP)
+      .div(MANTISSA_FACTOR_EXP);
 
-    let exchangeRate = tryExchangeRateStored
-      .value
+    let exchangeRate = tryExchangeRateStored.value
       .toBigDecimal()
       .div(exponentToBigDecimal(token.decimals))
       .times(exponentToBigDecimal(tryCTokenDecimals.value.toI32()))
       .div(MANTISSA_FACTOR_EXP);
 
-    market.totalBorrows = amountToDenomination(tryTotalBorrows.value, token.decimals);
-    market.totalReserves = amountToDenomination(tryTotalReserves.value, token.decimals);
+    market.totalBorrows = amountToDenomination(
+      tryTotalBorrows.value,
+      token.decimals
+    );
+    market.totalReserves = amountToDenomination(
+      tryTotalReserves.value,
+      token.decimals
+    );
     market.supplyRate = supplyRate;
     market.exchangeRate = exchangeRate;
     market.totalSupply = amountToDenomination(
