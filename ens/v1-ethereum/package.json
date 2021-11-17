@@ -1,0 +1,16 @@
+{
+  "name": "ens-v1-ethereum",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ token-terminal/ens-v1-ethereum",
+    "create-local": "graph create --node http://localhost:8020/ token-terminal/ens-v1-ethereum",
+    "remove-local": "graph remove --node http://localhost:8020/ token-terminal/ens-v1-ethereum",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/ens-v1-ethereum"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.23.1",
+    "@graphprotocol/graph-ts": "0.23.1"
+  }
+}
