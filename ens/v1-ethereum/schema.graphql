@@ -1,0 +1,21 @@
+type Global @entity {
+  id: ID!
+
+  "Fees from registering an ENS domain."
+  registrationFees: BigDecimal!
+
+  "Fees from renewing an ENS domain."
+  renewalFees: BigDecimal!
+
+  "Denomination"
+  denomination: Token!
+}
+
+type Token @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  totalSupply: BigInt!
+}
