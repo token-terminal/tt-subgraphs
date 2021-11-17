@@ -21,6 +21,7 @@ export function getOrCreateMarket(id: string, token: Token): Market {
     market.totalFeesGenerated = ZERO_BD;
     market.totalProtocolFeesGenerated = ZERO_BD;
     market.totalBorrows = ZERO_BD;
+    market.totalReserves = ZERO_BD;
     market.totalSupply = ZERO_BD;
     market.supplyRate = ZERO_BD;
     market.exchangeRate = ZERO_BD;

@@ -80,6 +80,7 @@ export function handleAccrueInterest0(event: AccrueInterest0): void {
 
   let ctoken = CToken.bind(Address.fromString(marketAddress));
   let tryTotalBorrows = ctoken.try_totalBorrows();
+  let tryTotalReserves = ctoken.try_totalReserves();
   let tryTotalSupply = ctoken.try_totalSupply();
   let tryCTokenDecimals = ctoken.try_decimals();
   let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
@@ -87,6 +88,7 @@ export function handleAccrueInterest0(event: AccrueInterest0): void {
 
   if (
     !tryTotalBorrows.reverted &&
+    !tryTotalReserves.reverted &&
     !tryTotalSupply.reverted &&
     !tryCTokenDecimals.reverted &&
     !tryBorrowRatePerBlock.reverted &&
@@ -105,6 +107,10 @@ export function handleAccrueInterest0(event: AccrueInterest0): void {
 
     market.totalBorrows = amountToDenomination(
       tryTotalBorrows.value,
+      token.decimals
+    );
+    market.totalReserves = amountToDenomination(
+      tryTotalReserves.value,
       token.decimals
     );
     market.supplyRate = supplyRate;
@@ -140,6 +146,7 @@ export function handleAccrueInterest1(event: AccrueInterest1): void {
 
   let ctoken = CToken.bind(Address.fromString(marketAddress));
   let tryTotalBorrows = ctoken.try_totalBorrows();
+  let tryTotalReserves = ctoken.try_totalReserves();
   let tryTotalSupply = ctoken.try_totalSupply();
   let tryCTokenDecimals = ctoken.try_decimals();
   let tryBorrowRatePerBlock = ctoken.try_borrowRatePerBlock();
@@ -147,6 +154,7 @@ export function handleAccrueInterest1(event: AccrueInterest1): void {
 
   if (
     !tryTotalBorrows.reverted &&
+    !tryTotalReserves.reverted &&
     !tryTotalSupply.reverted &&
     !tryCTokenDecimals.reverted &&
     !tryBorrowRatePerBlock.reverted &&
@@ -165,6 +173,10 @@ export function handleAccrueInterest1(event: AccrueInterest1): void {
 
     market.totalBorrows = amountToDenomination(
       tryTotalBorrows.value,
+      token.decimals
+    );
+    market.totalReserves = amountToDenomination(
+      tryTotalReserves.value,
       token.decimals
     );
     market.supplyRate = supplyRate;
