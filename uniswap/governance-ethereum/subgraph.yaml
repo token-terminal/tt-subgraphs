@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: Token Terminal's Uniswap Governance Subgraph
+repository: https://github.com/token-terminal/tt-subgraphs/tree/main/uniswap/governance-ethereum
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Uni
+    network: mainnet
+    source:
+      address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"
+      abi: Uni
+      startBlock: 10861674
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - GovernanceToken
+        - TokenHolder
+        - TransferEvents
+      abis:
+        - name: Uni
+          file: ./abis/Uni.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
