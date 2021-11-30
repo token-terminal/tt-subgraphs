@@ -756,9 +756,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "contract CToken", "name": "cToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "contract CToken", "name": "cToken", "type": "address" }],
     "name": "_supportMarket",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -772,9 +770,7 @@
       { "internalType": "uint256", "name": "", "type": "uint256" }
     ],
     "name": "accountAssets",
-    "outputs": [
-      { "internalType": "contract CToken", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract CToken", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -792,9 +788,7 @@
     "constant": true,
     "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "name": "allMarkets",
-    "outputs": [
-      { "internalType": "contract CToken", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract CToken", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -900,9 +894,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "holder", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
     "name": "claimComp",
     "outputs": [],
     "payable": false,
@@ -1022,22 +1014,16 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address[]", "name": "cTokens", "type": "address[]" }
-    ],
+    "inputs": [{ "internalType": "address[]", "name": "cTokens", "type": "address[]" }],
     "name": "enterMarkets",
-    "outputs": [
-      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
-    ],
+    "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "cTokenAddress", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "cTokenAddress", "type": "address" }],
     "name": "exitMarket",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -1046,9 +1032,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
     "name": "getAccountLiquidity",
     "outputs": [
       { "internalType": "uint256", "name": "", "type": "uint256" },
@@ -1063,22 +1047,16 @@
     "constant": true,
     "inputs": [],
     "name": "getAllMarkets",
-    "outputs": [
-      { "internalType": "contract CToken[]", "name": "", "type": "address[]" }
-    ],
+    "outputs": [{ "internalType": "contract CToken[]", "name": "", "type": "address[]" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
     "name": "getAssetsIn",
-    "outputs": [
-      { "internalType": "contract CToken[]", "name": "", "type": "address[]" }
-    ],
+    "outputs": [{ "internalType": "contract CToken[]", "name": "", "type": "address[]" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -1130,9 +1108,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "contract CToken", "name": "cToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "contract CToken", "name": "cToken", "type": "address" }],
     "name": "isDeprecated",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "payable": false,
@@ -1306,9 +1282,7 @@
     "constant": true,
     "inputs": [],
     "name": "oracle",
-    "outputs": [
-      { "internalType": "contract PriceOracle", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract PriceOracle", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -1494,9 +1468,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "contributor", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "contributor", "type": "address" }],
     "name": "updateContributorRewards",
     "outputs": [],
     "payable": false,

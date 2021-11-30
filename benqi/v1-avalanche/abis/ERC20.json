@@ -194,9 +194,7 @@
     "stateMutability": "nonpayable",
     "outputs": [],
     "name": "addSupportedChainId",
-    "inputs": [
-      { "type": "uint256", "name": "chainId", "internalType": "uint256" }
-    ]
+    "inputs": [{ "type": "uint256", "name": "chainId", "internalType": "uint256" }]
   },
   {
     "type": "function",
@@ -241,18 +239,14 @@
     "stateMutability": "view",
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "balanceOf",
-    "inputs": [
-      { "type": "address", "name": "account", "internalType": "address" }
-    ]
+    "inputs": [{ "type": "address", "name": "account", "internalType": "address" }]
   },
   {
     "type": "function",
     "stateMutability": "nonpayable",
     "outputs": [],
     "name": "burn",
-    "inputs": [
-      { "type": "uint256", "name": "amount", "internalType": "uint256" }
-    ]
+    "inputs": [{ "type": "uint256", "name": "amount", "internalType": "uint256" }]
   },
   {
     "type": "function",
@@ -368,9 +362,7 @@
     "stateMutability": "view",
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "swapSupply",
-    "inputs": [
-      { "type": "address", "name": "token", "internalType": "address" }
-    ]
+    "inputs": [{ "type": "address", "name": "token", "internalType": "address" }]
   },
   {
     "type": "function",
