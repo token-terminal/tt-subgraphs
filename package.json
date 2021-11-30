@@ -18,6 +18,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "format": "prettier --write {,*/**/**/}*.{ts,json}"
+    "format": "prettier --write {,*/**/**/}*.{ts,json}",
+    "test-format": "prettier --check {,*/**/**/}*.{ts,json}"
   }
 }
