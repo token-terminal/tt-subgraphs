@@ -500,9 +500,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "_addReserves",
-    "inputs": [
-      { "type": "uint256", "name": "addAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "addAmount", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -511,9 +509,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "_reduceReserves",
-    "inputs": [
-      { "type": "uint256", "name": "reduceAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "reduceAmount", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -634,9 +630,7 @@
     "type": "function",
     "stateMutability": "view",
     "payable": false,
-    "outputs": [
-      { "type": "address", "name": "", "internalType": "address payable" }
-    ],
+    "outputs": [{ "type": "address", "name": "", "internalType": "address payable" }],
     "name": "admin",
     "inputs": [],
     "constant": true
@@ -671,9 +665,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "balanceOf",
-    "inputs": [
-      { "type": "address", "name": "owner", "internalType": "address" }
-    ],
+    "inputs": [{ "type": "address", "name": "owner", "internalType": "address" }],
     "constant": true
   },
   {
@@ -682,9 +674,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "balanceOfUnderlying",
-    "inputs": [
-      { "type": "address", "name": "owner", "internalType": "address" }
-    ],
+    "inputs": [{ "type": "address", "name": "owner", "internalType": "address" }],
     "constant": false
   },
   {
@@ -693,9 +683,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "borrow",
-    "inputs": [
-      { "type": "uint256", "name": "borrowAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "borrowAmount", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -704,9 +692,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "borrowBalanceCurrent",
-    "inputs": [
-      { "type": "address", "name": "account", "internalType": "address" }
-    ],
+    "inputs": [{ "type": "address", "name": "account", "internalType": "address" }],
     "constant": false
   },
   {
@@ -715,9 +701,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "borrowBalanceStored",
-    "inputs": [
-      { "type": "address", "name": "account", "internalType": "address" }
-    ],
+    "inputs": [{ "type": "address", "name": "account", "internalType": "address" }],
     "constant": true
   },
   {
@@ -809,9 +793,7 @@
       { "type": "uint256", "name": "", "internalType": "uint256" }
     ],
     "name": "getAccountSnapshot",
-    "inputs": [
-      { "type": "address", "name": "account", "internalType": "address" }
-    ],
+    "inputs": [{ "type": "address", "name": "account", "internalType": "address" }],
     "constant": true
   },
   {
@@ -879,9 +861,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "mint",
-    "inputs": [
-      { "type": "uint256", "name": "mintAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "mintAmount", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -897,9 +877,7 @@
     "type": "function",
     "stateMutability": "view",
     "payable": false,
-    "outputs": [
-      { "type": "address", "name": "", "internalType": "address payable" }
-    ],
+    "outputs": [{ "type": "address", "name": "", "internalType": "address payable" }],
     "name": "pendingAdmin",
     "inputs": [],
     "constant": true
@@ -919,9 +897,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "redeem",
-    "inputs": [
-      { "type": "uint256", "name": "redeemTokens", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "redeemTokens", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -930,9 +906,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "redeemUnderlying",
-    "inputs": [
-      { "type": "uint256", "name": "redeemAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "redeemAmount", "internalType": "uint256" }],
     "constant": false
   },
   {
@@ -941,9 +915,7 @@
     "payable": false,
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
     "name": "repayBorrow",
-    "inputs": [
-      { "type": "uint256", "name": "repayAmount", "internalType": "uint256" }
-    ],
+    "inputs": [{ "type": "uint256", "name": "repayAmount", "internalType": "uint256" }],
     "constant": false
   },
   {

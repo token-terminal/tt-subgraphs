@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: Token Terminal's Compound Governance Subgraph
+repository: https://github.com/token-terminal/tt-subgraphs/tree/main/compound/governance-ethereum
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Comp
+    network: mainnet
+    source:
+      address: "0xc00e94Cb662C3520282E6f5717214004A7f26888"
+      abi: Comp
+      startBlock: 9601359
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - GovernanceToken
+        - TokenHolder
+        - TransferEvents
+      abis:
+        - name: Comp
+          file: ./abis/Comp.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
