@@ -1,0 +1,39 @@
+name: Prettier
+
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: |
+        npm run test-format
+        npm run format
+
+        GIT_DIFF=$(git --no-pager diff --name-only -- frontend/ )
+        if [[ -n ${GIT_DIFF} ]]; then
+          echo -e "\e[31m" # red
+          echo -e "${GIT_DIFF}\n"
+          echo -e "ERROR: '/' needs to be formatted!"
+          echo -e "Please run the following command and commit the result:"
+          echo -e "\$ npm run format"
+          echo -e "\e[0m" # end color
+          exit 1
+        fi
+        echo "/ is formatted correctly"
