@@ -1,7 +1,7 @@
 {
   "name": "tt-subgraphs",
   "version": "1.0.0",
-  "description": "Subgraphs developed and maintained by Token Temrinal.",
+  "description": "Subgraphs developed and maintained by Token Terminal.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/token-terminal/tt-subgraphs/issues"
@@ -11,13 +11,14 @@
     "@graphprotocol/graph-ts": "0.20.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "husky": "^7.0.0",
-    "prettier": "^2.4.1"
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-conventional": "15.0.0",
+    "husky": "7.0.4",
+    "prettier": "2.5.0"
   },
   "scripts": {
     "prepare": "husky install",
-    "format": "prettier --write {,*/**/**/}*.{ts,json}"
+    "format": "prettier --write {,*/**/**/}*.{ts,json}",
+    "test-format": "prettier --check {,*/**/**/}*.{ts,json}"
   }
 }
