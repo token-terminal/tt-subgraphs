@@ -4,7 +4,7 @@ import { CToken as CTokenTemplate } from "../generated/templates";
 import { MarketListed } from "../generated/Comptroller/Comptroller";
 import {
   AccrueInterest,
-  NewReserveFactor,
+  NewReserveFactor
 } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import {
@@ -14,12 +14,12 @@ import {
   getMarket,
   isMarket,
   amountToDenomination,
-  exponentToBigDecimal,
+  exponentToBigDecimal
 } from "./helpers";
 import {
   MANTISSA_FACTOR,
   QIAVAX_TOKEN_ADDRESS,
-  WAVAX_TOKEN_ADDRESS,
+  WAVAX_TOKEN_ADDRESS
 } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);

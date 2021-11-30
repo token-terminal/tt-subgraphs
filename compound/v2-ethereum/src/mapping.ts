@@ -1,14 +1,14 @@
 import { Address, BigDecimal } from "@graphprotocol/graph-ts";
 import {
   NewImplementation,
-  NewPriceOracle,
+  NewPriceOracle
 } from "../generated/Comptroller/Comptroller";
 import { CToken as CTokenTemplate } from "../generated/templates";
 import { MarketListed } from "../generated/Comptroller/Comptroller";
 import {
   AccrueInterest as AccrueInterest0,
-  AccrueInterest1 as AccrueInterest1,
-  NewReserveFactor,
+  AccrueInterest1,
+  NewReserveFactor
 } from "../generated/templates/CToken/CToken";
 import { CToken } from "../generated/templates/CToken/CToken";
 import {
@@ -18,13 +18,13 @@ import {
   getMarket,
   isMarket,
   amountToDenomination,
-  exponentToBigDecimal,
+  exponentToBigDecimal
 } from "./helpers";
 import {
   CETH_TOKEN_ADDRESS,
   WETH_TOKEN_ADDRESS,
   YEARLY_BORROW_RATE,
-  MANTISSA_FACTOR,
+  MANTISSA_FACTOR
 } from "./constants";
 
 let MANTISSA_FACTOR_EXP: BigDecimal = exponentToBigDecimal(MANTISSA_FACTOR);

@@ -1,11 +1,11 @@
 import { Address, BigDecimal } from "@graphprotocol/graph-ts";
 import {
   NewVault,
-  NewExperimentalVault,
+  NewExperimentalVault
 } from "../generated/Registry7/Registry";
 import {
   Vault as VaultTemplate,
-  Strategy as StrategyTemplate,
+  Strategy as StrategyTemplate
 } from "../generated/templates";
 import {
   Vault,
@@ -13,12 +13,12 @@ import {
   StrategyAdded1,
   StrategyReported,
   StrategyReported1,
-  Transfer,
+  Transfer
 } from "../generated/Registry7/Vault";
 import {
   Vault as VaultSchema,
   Strategy as StrategySchema,
-  Token as TokenSchema,
+  Token as TokenSchema
 } from "../generated/schema";
 import {
   NewVaultEvent,
@@ -27,14 +27,14 @@ import {
   StrategyAdded_v0_3_0_v0_3_1Event,
   StrategyReportedEvent,
   StrategyReported_v0_3_0_v0_3_1Event,
-  TransferEvent,
+  TransferEvent
 } from "../generated/schema";
 import {
   getOrCreateVault,
   getOrCreateStrategy,
   getOrCreateToken,
   getTokenDecimals,
-  amountToDenomination,
+  amountToDenomination
 } from "./helpers";
 import { EXCLUDED_TRANSACTIONS } from "./constants";
 
@@ -268,7 +268,10 @@ export function handleStrategyReported(event: StrategyReported1): void {
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
   let performanceFeesGenerated = yieldGenerated.times(
-    vaultContract.performanceFee().toBigDecimal().div(BASIS_POINTS_BD)
+    vaultContract
+      .performanceFee()
+      .toBigDecimal()
+      .div(BASIS_POINTS_BD)
   );
 
   let tryPricePerShare = vaultContract.try_pricePerShare();
@@ -294,8 +297,9 @@ export function handleStrategyReported(event: StrategyReported1): void {
   vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(
     performanceFeesGenerated
   );
-  vault.totalVaultPerformanceFeesGenerated =
-    vault.totalVaultPerformanceFeesGenerated.plus(performanceFeesGenerated);
+  vault.totalVaultPerformanceFeesGenerated = vault.totalVaultPerformanceFeesGenerated.plus(
+    performanceFeesGenerated
+  );
   vault.save();
 }
 
@@ -343,7 +347,10 @@ export function handleStrategyReported_v0_3_0_v0_3_1(
 
   let yieldGenerated = amountToDenomination(gain, token.decimals);
   let performanceFeesGenerated = yieldGenerated.times(
-    vaultContract.performanceFee().toBigDecimal().div(BASIS_POINTS_BD)
+    vaultContract
+      .performanceFee()
+      .toBigDecimal()
+      .div(BASIS_POINTS_BD)
   );
 
   let tryPricePerShare = vaultContract.try_pricePerShare();
@@ -369,8 +376,9 @@ export function handleStrategyReported_v0_3_0_v0_3_1(
   vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(
     performanceFeesGenerated
   );
-  vault.totalVaultPerformanceFeesGenerated =
-    vault.totalVaultPerformanceFeesGenerated.plus(performanceFeesGenerated);
+  vault.totalVaultPerformanceFeesGenerated = vault.totalVaultPerformanceFeesGenerated.plus(
+    performanceFeesGenerated
+  );
   vault.save();
 }
 
@@ -419,8 +427,9 @@ export function handleTransfer(event: Transfer): void {
       pricePerShare
     );
 
-    vault.totalManagementFeesGenerated =
-      vault.totalManagementFeesGenerated.plus(managementFeeGenerated);
+    vault.totalManagementFeesGenerated = vault.totalManagementFeesGenerated.plus(
+      managementFeeGenerated
+    );
     vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(
       managementFeeGenerated
     );
@@ -436,8 +445,9 @@ export function handleTransfer(event: Transfer): void {
     pricePerShare
   );
 
-  vault.totalStrategistPerformanceFeesGenerated =
-    vault.totalStrategistPerformanceFeesGenerated.plus(strategistFeesGenerated);
+  vault.totalStrategistPerformanceFeesGenerated = vault.totalStrategistPerformanceFeesGenerated.plus(
+    strategistFeesGenerated
+  );
   vault.totalProtocolFeesGenerated = vault.totalProtocolFeesGenerated.plus(
     strategistFeesGenerated
   );
