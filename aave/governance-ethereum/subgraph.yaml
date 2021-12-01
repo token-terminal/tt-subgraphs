@@ -8,9 +8,9 @@ dataSources:
     name: AaveTokenV2
     network: mainnet
     source:
-      address: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
+      address: '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9'
       abi: AaveTokenV2
-      startBlock: 13720571
+      startBlock: 10926829
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
