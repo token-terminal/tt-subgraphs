@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: Token Terminal's MakerDAO Governance Subgraph
+repository: https://github.com/token-terminal/tt-subgraphs/tree/main/makerdao/governance-ethereum
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: DSToken
+    network: mainnet
+    source:
+      address: "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2"
+      abi: DSToken
+      startBlock: 4620855
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - GovernanceToken
+        - TokenHolder
+        - TransferEvents
+      abis:
+        - name: DSToken
+          file: ./abis/DSToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
