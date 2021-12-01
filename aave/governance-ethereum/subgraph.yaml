@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: Token Terminal's Aave Governance Subgraph
+repository: https://github.com/token-terminal/tt-subgraphs/tree/main/aave/governance-ethereum
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: AaveTokenV2
+    network: mainnet
+    source:
+      address: '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9'
+      abi: AaveTokenV2
+      startBlock: 10926829
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - GovernanceToken
+        - TokenHolder
+        - TransferEvents
+      abis:
+        - name: AaveTokenV2
+          file: ./abis/AaveTokenV2.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
