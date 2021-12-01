@@ -1,0 +1,92 @@
+"""
+Token is a standard type containing basic information about a token
+"""
+type Token @entity {
+  "Token address"
+  id: ID!
+
+  "Token address"
+  address: Bytes!
+
+  "Token name"
+  name: String!
+
+  "Token symbol"
+  symbol: String!
+
+  "Number of decimals for native representation of token amounts"
+  decimals: Int!
+
+  "Token's total supply (denominated in name / 10**decimals)"
+  totalSupply: BigDecimal!
+}
+
+"""
+GovernanceToken extends Token with information such as holder counts
+"""
+type GovernanceToken @entity {
+  "Governance token address"
+  id: ID!
+
+  "Holder count"
+  numberOfTokenHolders: BigInt!
+
+  "Governance token's entity"
+  token: Token!
+}
+
+"""
+TokenHolder contains the individual addresses holding Token and their balances
+"""
+type TokenHolder @entity {
+  "Holder address"
+  id: ID!
+
+  "Holder address"
+  address: Bytes!
+
+  "Holder balance (denominated in token.name / 10**token.decimals)"
+  balance: BigDecimal!
+
+  "Information about token held by Holder"
+  governanceToken: GovernanceToken!
+
+  "Latest block when balance was updated (i.e. no transfers from/to this holder since then)"
+  updatedAtBlock: BigInt!
+
+  "Latest timestamp when balance was updated (i.e. no transfers from/to this holder since then)"
+  updatedAtTimestamp: BigInt!
+}
+
+"""
+TransferEvent contains transfer event data that was used to determine token ownership
+"""
+type TransferEvent @entity {
+
+  "Transaction hash"
+  id: ID!
+
+  "Transfer timestamp"
+  timestamp: Int!
+
+  "Transfer block"
+  block: BigInt!
+
+  "Address where the transfer was sent from"
+  fromAddress: Bytes!
+
+  "Address where the transfer was sent to"
+  toAddress: Bytes!
+
+  "Transfer value (denominated in token.name / 10**token.decimals)"
+  transferAmount: BigDecimal!
+
+  "Token balance in the address where the transfer was sent from after transfer executed (denominated in token.name / 10**token.decimals)"
+  fromBalance: BigDecimal!
+
+  "Token balance in the address where the transfer was sent to after transfer executed (denominated in token.name / 10**token.decimals)"
+  toBalance: BigDecimal!
+
+  "Token involved in the transfer"
+  token: Token!
+}
