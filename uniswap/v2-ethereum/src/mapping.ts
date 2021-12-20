@@ -1,25 +1,23 @@
-import { BigInt } from "@graphprotocol/graph-ts"
-import { Pair as PairTemplate } from "../generated/templates"
+import { BigInt } from '@graphprotocol/graph-ts'
+import { Pair as PairTemplate } from '../generated/templates'
+import { UniswapV2Factory, PairCreated } from '../generated/UniswapV2Factory/UniswapV2Factory'
+import { Mint, Burn, Swap, Transfer, Approval, Sync } from '../generated/templates/Pair/UniswapV2Pair'
 import {
-  UniswapV2Factory,
-  PairCreated
-} from "../generated/UniswapV2Factory/UniswapV2Factory"
-import {
-  Mint,
-  Burn,
-  Swap,
-  Transfer,
-  Approval,
-  Sync,
-} from "../generated/templates/Pair/UniswapV2Pair"
-import { PairCreatedV0Event, MintV0Event, BurnV0Event, SwapV0Event, TransferV0Event, ApprovalV0Event, SyncV0Event } from "../generated/schema"
+  PairCreatedV0Event,
+  MintV0Event,
+  BurnV0Event,
+  SwapV0Event,
+  TransferV0Event,
+  ApprovalV0Event,
+  SyncV0Event,
+} from '../generated/schema'
 
 export function handlePairCreated(event: PairCreated): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let PairCreatedEntity = new PairCreatedV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let token0 = event.params.token0
   let token1 = event.params.token1
@@ -38,11 +36,11 @@ export function handlePairCreated(event: PairCreated): void {
   PairCreatedEntity.save()
 }
 export function handleMint(event: Mint): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let mintEntity = new MintV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let sender = event.params.sender
   let amount0 = event.params.amount0
@@ -59,11 +57,11 @@ export function handleMint(event: Mint): void {
   mintEntity.save()
 }
 export function handleBurn(event: Burn): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let burnEntity = new BurnV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let sender = event.params.sender
   let amount0 = event.params.amount0
@@ -82,11 +80,11 @@ export function handleBurn(event: Burn): void {
   burnEntity.save()
 }
 export function handleSwap(event: Swap): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let swapEntity = new SwapV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let sender = event.params.sender
   let amount0In = event.params.amount0In
@@ -109,11 +107,11 @@ export function handleSwap(event: Swap): void {
   swapEntity.save()
 }
 export function handleApproval(event: Approval): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let approvalEntity = new ApprovalV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let owner = event.params.owner
   let spender = event.params.spender
@@ -130,11 +128,11 @@ export function handleApproval(event: Approval): void {
   approvalEntity.save()
 }
 export function handleTransfer(event: Transfer): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let transferEntity = new TransferV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let from = event.params.from
   let to = event.params.to
@@ -151,11 +149,11 @@ export function handleTransfer(event: Transfer): void {
   transferEntity.save()
 }
 export function handleSync(event: Sync): void {
-  let transactionHash = event.transaction.hash;
-  let contractAddress = event.address;
-  let blockNumber = event.block.number;
-  let blockTime = event.block.timestamp;
-  let logIndex = event.logIndex;
+  let transactionHash = event.transaction.hash
+  let contractAddress = event.address
+  let blockNumber = event.block.number
+  let blockTime = event.block.timestamp
+  let logIndex = event.logIndex
   let SyncEntity = new SyncV0Event(`${transactionHash.toHexString()}-${logIndex}`)
   let reserve0 = event.params.reserve0
   let reserve1 = event.params.reserve1
