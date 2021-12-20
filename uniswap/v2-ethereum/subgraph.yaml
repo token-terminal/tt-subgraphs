@@ -6,14 +6,15 @@ dataSources:
     name: UniswapV2Factory
     network: mainnet
     source:
-      address: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
+      address: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
       abi: UniswapV2Factory
+      startBlock: 10000835
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - PairCreated
+        - PairCreatedV0Event
       abis:
         - name: UniswapV2Factory
           file: ./abis/UniswapV2Factory.json
@@ -21,3 +22,37 @@ dataSources:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handlePairCreated
       file: ./src/mapping.ts
+templates:
+  - kind: ethereum/contract
+    name: Pair
+    network: mainnet
+    source:
+      abi: UniswapV2Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - MintV0Event
+        - BurnV0Event
+        - SwapV0Event
+        - TransferV0Event
+        - ApprovalV0Event
+        - SyncV0Event
+      abis:
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMint
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurn
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync
