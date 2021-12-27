@@ -1,0 +1,58 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: PangolinFactory
+    network: mainnet
+    source:
+      address: '0xefa94DE7a4656D787667C749f7E1223D71E9FD88'
+      abi: PangolinFactory
+      startBlock: 56877
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - PairCreatedV0Event
+      abis:
+        - name: PangolinFactory
+          file: ./abis/PangolinFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/mapping.ts
+templates:
+  - kind: ethereum/contract
+    name: Pair
+    network: mainnet
+    source:
+      abi: PangolinPair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - MintV0Event
+        - BurnV0Event
+        - SwapV0Event
+        - TransferV0Event
+        - ApprovalV0Event
+        - SyncV0Event
+      abis:
+        - name: PangolinPair
+          file: ./abis/PangolinPair.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMint
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurn
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync
