@@ -1,0 +1,16 @@
+{
+  "name": "trader-joe-v1-avalanche",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ token-terminal/trader-joe-v1-avalanche",
+    "create-local": "graph create --node http://localhost:8020/ token-terminal/trader-joe-v1-avalanche",
+    "remove-local": "graph remove --node http://localhost:8020/ token-terminal/trader-joe-v1-avalanche",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/trader-joe-v1-avalanche"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.23.1",
+    "@graphprotocol/graph-ts": "0.23.1"
+  }
+}
