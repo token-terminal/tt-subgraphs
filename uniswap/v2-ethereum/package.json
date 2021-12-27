@@ -4,7 +4,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --access-token c2fc9aa06e964dd89d6d85618f7e14be --node https://api.thegraph.com/deploy/ token-terminal/uniswap-v2-ethereum",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ token-terminal/uniswap-v2-ethereum",
     "create-local": "graph create --node http://localhost:8020/ token-terminal/uniswap-v2-ethereum",
     "remove-local": "graph remove --node http://localhost:8020/ token-terminal/uniswap-v2-ethereum",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/uniswap-v2-ethereum"

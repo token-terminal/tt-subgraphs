@@ -1,6 +1,3 @@
-[submodule "pangolin/v1-avalanche"]
-	path = pangolin/v1-avalanche
-	url = https://github.com/token-terminal/pangolin-subgraph
 [submodule "trader-joe/v1-avalanche"]
 	path = trader-joe/v1-avalanche
 	url = https://github.com/token-terminal/trader-joe-subgraph
