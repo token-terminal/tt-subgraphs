@@ -106,6 +106,3 @@ dist
 # Subgraph generated files
 build/
 generated/
-
-# Husky
-.husky
