@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ Vpum/uniswap-v3-ethereum1",
-    "create-local": "graph create --node http://localhost:8020/ Vpum/uniswap-v3-ethereum1",
-    "remove-local": "graph remove --node http://localhost:8020/ Vpum/uniswap-v3-ethereum1",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 Vpum/uniswap-v3-ethereum1"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ Token-Terminal/uniswap-v3-ethereum",
+    "create-local": "graph create --node http://localhost:8020/ Token-Terminal/uniswap-v3-ethereum",
+    "remove-local": "graph remove --node http://localhost:8020/ Token-Terminal/uniswap-v3-ethereum",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 Token-Terminal/uniswap-v3-ethereum"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.25.1",
