@@ -1,0 +1,104 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: UniswapV3Factory
+    network: mainnet
+    source:
+      address: "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+      abi: UniswapV3Factory
+      startBlock: 12369621
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - FeeAmountEnabledV0Event
+        - OwnerChangedV0Event
+        - PoolCreatedV0Event
+      abis:
+        - name: UniswapV3Factory
+          file: ./abis/UniswapV3Factory.json
+      eventHandlers:
+        - event: FeeAmountEnabled(indexed uint24,indexed int24)
+          handler: handleFeeAmountEnabled
+        - event: OwnerChanged(indexed address,indexed address)
+          handler: handleOwnerChanged
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ././src/mappings/factory.ts
+  - kind: ethereum
+    name: NonfungiblePositionManager
+    network: mainnet
+    source:
+      address: "0xC36442b4a4522E871399CD717aBDD847Ab11FE88"
+      abi: NonfungiblePositionManager
+      startBlock: 12369621
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - IncreaseLiquidityV0Event
+        - DecreaseLiquidityV0Event
+        - CollectV1Event
+        - ApprovalV0Event
+        - ApprovalForAllV0eEvent
+        - TransferV0Event
+      abis:
+        - name: NonfungiblePositionManager
+          file: ./abis/NonfungiblePositionManager.json
+      eventHandlers:
+        - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleIncreaseLiquidity
+        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleDecreaseLiquidity
+        - event: Collect(indexed uint256,address,uint256,uint256)
+          handler: handleCollect
+      file: ././src/mappings/position-manager.ts
+templates:
+  - kind: ethereum/contract
+    name: Pool
+    network: mainnet
+    source:
+      abi: UniswapV3Pool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ././src/mappings/factory.ts
+      entities:
+        - IncreaseObservationCardinalityNextV0Event
+        - InitializeV0Event
+        - MintV0Event
+        - CollectV0Event
+        - BurnV0Event
+        - SwapV0Event
+        - FlashV0Event
+        - SetFeeProtocolV0Event
+        - CollectProtocolV0Event
+      abis:
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+      eventHandlers:
+        - event: IncreaseObservationCardinalityNext(uint16,uint16)
+          handler: handleIncreaseObservationCardinalityNext
+        - event: Initialize(uint160,int24)
+          handler: handleInitialize
+        - event: Mint(address,indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
+          handler: handleMint
+        - event: Collect(indexed address,address,indexed int24,indexed int24,uint128,uint128)
+          handler: handleCollect
+        - event: Burn(indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
+          handler: handleBurn
+        - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
+          handler: handleSwap
+        - event: Flash(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleFlash
+        - event: SetFeeProtocol(uint8,uint8,uint8,uint8)
+          handler: handleSetFeeProtocol
+        - event: CollectProtocol(indexed address,indexed address,uint128,uint128)
+          handler: handleCollectProtocol
+    
+
