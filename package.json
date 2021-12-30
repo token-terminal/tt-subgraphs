@@ -13,12 +13,17 @@
   "devDependencies": {
     "@commitlint/cli": "15.0.0",
     "@commitlint/config-conventional": "15.0.0",
-    "husky": "7.0.4",
+    "husky": "^7.0.0",
     "prettier": "2.5.0"
   },
   "scripts": {
     "prepare": "husky install",
     "format": "prettier --write {,*/**/**/}*.{ts,json}",
     "test-format": "prettier --check {,*/**/**/}*.{ts,json}"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
