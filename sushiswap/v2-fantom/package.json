@@ -1,0 +1,16 @@
+{
+  "name": "sushiswap-v2-fantom",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ token-terminal/sushiswap-v2-fantom",
+    "create-local": "graph create --node http://localhost:8020/ token-terminal/sushiswap-v2-fantom",
+    "remove-local": "graph remove --node http://localhost:8020/ token-terminal/sushiswap-v2-fantom",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 token-terminal/sushiswap-v2-fantom"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.23.1",
+    "@graphprotocol/graph-ts": "0.23.1"
+  }
+}
