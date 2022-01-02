@@ -1,43 +1,46 @@
-type PairCreatedV0Event @entity {
+type FactoryPairCreatedV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   token0: Bytes!
   token1: Bytes!
   pair: Bytes! #address
 }
-type MintV0Event @entity {
+
+type PairMintV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   sender: Bytes! #address
   amount0: BigInt!
   amount1: BigInt!
 }
-type BurnV0Event @entity {
+
+type PairBurnV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   sender: Bytes!
   amount0: BigInt!
   amount1: BigInt!
   to: Bytes! #address
 }
-type SwapV0Event @entity {
+
+type PairSwapV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   sender: Bytes!
   amount0In: BigInt!
@@ -46,34 +49,37 @@ type SwapV0Event @entity {
   amount1Out: BigInt!
   to: Bytes! #address
 }
-type ApprovalV0Event @entity {
+
+type PairApprovalV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   owner: Bytes!
   spender: Bytes!
   value: BigInt!
 }
-type TransferV0Event @entity {
+
+type PairTransferV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   from: Bytes!
   to: Bytes!
-  amount: BigInt!
+  value: BigInt!
 }
-type SyncV0Event @entity {
+
+type PairSyncV1Event @entity {
   id: ID!
   transactionHash: Bytes!
-  contractAddress: Bytes!
+  address: Bytes!
   blockNumber: BigInt!
-  blockTime: BigInt!
+  blockTimestamp: BigInt!
   logIndex: BigInt!
   reserve0: BigInt!
   reserve1: BigInt!
