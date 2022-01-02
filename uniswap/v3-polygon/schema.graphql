@@ -1,0 +1,199 @@
+type FactoryFeeAmountEnabledV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  fee: Int!
+  tickSpacing: Int!
+}
+
+type FactoryOwnerChangedV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  oldOwner: Bytes!
+  newOwner: Bytes!
+}
+
+type FactoryPoolCreatedV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  token0: Bytes!
+  token1: Bytes!
+  fee: Int!
+  tickSpacing: Int!
+  pool: Bytes!
+}
+
+type NonfungiblePositionManagerIncreaseLiquidityV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  tokenId: BigInt!
+  liquidity: BigInt!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type NonfungiblePositionManagerDecreaseLiquidityV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  tokenId: BigInt!
+  liquidity: BigInt!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type NonfungiblePositionManagerCollectV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  tokenId: BigInt!
+  recipient: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type PoolIncreaseObservationCardinalityNextV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  observationCardinalityNextOld: Int!
+  observationCardinalityNextNew: Int!
+}
+
+type PoolInitializeV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sqrtPriceX96: BigInt!
+  tick: Int!
+}
+
+type PoolMintV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  owner: Bytes!
+  tickLower: Int!
+  tickUpper: Int!
+  amount: BigInt!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type PoolCollectV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  owner: Bytes!
+  recipient: Bytes!
+  tickLower: Int!
+  tickUpper: Int!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type PoolBurnV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  owner: Bytes!
+  tickLower: Int!
+  tickUpper: Int!
+  amount: BigInt!
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type PoolSwapV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  recipient: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+  sqrtPriceX96: BigInt!
+  liquidity: BigInt!
+  tick: Int!
+}
+
+type PoolFlashV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  recipient: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+  paid0: BigInt!
+  paid1: BigInt!
+}
+
+type PoolSetFeeProtocolV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  feeProtocol0Old: Int!
+  feeProtocol1Old: Int!
+  feeProtocol0New: Int!
+  feeProtocol1New: Int!
+}
+
+type PoolCollectProtocolV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  recipient: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+}
