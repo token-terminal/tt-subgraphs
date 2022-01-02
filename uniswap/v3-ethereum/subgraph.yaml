@@ -2,7 +2,7 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: Factory
     network: mainnet
     source:
@@ -28,7 +28,7 @@ dataSources:
         - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
           handler: handleFactoryPoolCreatedV1Event
       file: ./src/mapping.ts
-  - kind: ethereum
+  - kind: ethereum/contract
     name: NonfungiblePositionManager
     network: mainnet
     source:
