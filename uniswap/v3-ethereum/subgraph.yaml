@@ -3,36 +3,36 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: UniswapV3Factory
+    name: Factory
     network: mainnet
     source:
-      address: "0x1F98431c8aD98523631AE4a59f267346ea31F984"
-      abi: UniswapV3Factory
+      address: '0x1F98431c8aD98523631AE4a59f267346ea31F984'
+      abi: Factory
       startBlock: 12369621
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - FeeAmountEnabledV0Event
-        - OwnerChangedV0Event
-        - PoolCreatedV0Event
+        - FactoryFeeAmountEnabledV1Event
+        - FactoryOwnerChangedV1Event
+        - FactoryPoolCreatedV1Event
       abis:
-        - name: UniswapV3Factory
-          file: ./abis/UniswapV3Factory.json
+        - name: Factory
+          file: ./abis/Factory.json
       eventHandlers:
         - event: FeeAmountEnabled(indexed uint24,indexed int24)
-          handler: handleFeeAmountEnabled
+          handler: handleFactoryFeeAmountEnabledV1Event
         - event: OwnerChanged(indexed address,indexed address)
-          handler: handleOwnerChanged
+          handler: handleFactoryOwnerChangedV1Event
         - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
-          handler: handlePoolCreated
-      file: ././src/mappings/factory.ts
+          handler: handleFactoryPoolCreatedV1Event
+      file: ./src/mapping.ts
   - kind: ethereum
     name: NonfungiblePositionManager
     network: mainnet
     source:
-      address: "0xC36442b4a4522E871399CD717aBDD847Ab11FE88"
+      address: '0xC36442b4a4522E871399CD717aBDD847Ab11FE88'
       abi: NonfungiblePositionManager
       startBlock: 12369621
     mapping:
@@ -40,65 +40,60 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - IncreaseLiquidityV0Event
-        - DecreaseLiquidityV0Event
-        - CollectV1Event
-        - ApprovalV0Event
-        - ApprovalForAllV0eEvent
-        - TransferV0Event
+        - NonfungiblePositionManagerIncreaseLiquidityV1Event
+        - NonfungiblePositionManagerDecreaseLiquidityV1Event
+        - NonfungiblePositionManagerCollectV1Event
       abis:
         - name: NonfungiblePositionManager
           file: ./abis/NonfungiblePositionManager.json
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
-          handler: handleIncreaseLiquidity
+          handler: handleNonfungiblePositionManagerIncreaseLiquidityV1Event
         - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
-          handler: handleDecreaseLiquidity
+          handler: handleNonfungiblePositionManagerDecreaseLiquidityV1Event
         - event: Collect(indexed uint256,address,uint256,uint256)
-          handler: handleCollect
-      file: ././src/mappings/position-manager.ts
+          handler: handleNonfungiblePositionManagerCollectV1Event
+      file: ./src/mapping.ts
 templates:
   - kind: ethereum/contract
     name: Pool
     network: mainnet
     source:
-      abi: UniswapV3Pool
+      abi: Pool
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
-      file: ././src/mappings/factory.ts
+      file: ./src/mapping.ts
       entities:
-        - IncreaseObservationCardinalityNextV0Event
-        - InitializeV0Event
-        - MintV0Event
-        - CollectV0Event
-        - BurnV0Event
-        - SwapV0Event
-        - FlashV0Event
-        - SetFeeProtocolV0Event
-        - CollectProtocolV0Event
+        - PoolIncreaseObservationCardinalityNextV1Event
+        - PoolInitializeV1Event
+        - PoolMintV1Event
+        - PoolCollectV1Event
+        - PoolBurnV1Event
+        - PoolSwapV1Event
+        - PoolFlashV1Event
+        - PoolSetFeeProtocolV1Event
+        - PoolCollectProtocolV1Event
       abis:
-        - name: UniswapV3Pool
-          file: ./abis/UniswapV3Pool.json
+        - name: Pool
+          file: ./abis/Pool.json
       eventHandlers:
         - event: IncreaseObservationCardinalityNext(uint16,uint16)
-          handler: handleIncreaseObservationCardinalityNext
+          handler: handlePoolIncreaseObservationCardinalityNextV1Event
         - event: Initialize(uint160,int24)
-          handler: handleInitialize
+          handler: handlePoolInitializeV1Event
         - event: Mint(address,indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
-          handler: handleMint
+          handler: handlePoolMintV1Event
         - event: Collect(indexed address,address,indexed int24,indexed int24,uint128,uint128)
-          handler: handleCollect
+          handler: handlePoolCollectV1Event
         - event: Burn(indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
-          handler: handleBurn
+          handler: handlePoolBurnV1Event
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
-          handler: handleSwap
+          handler: handlePoolSwapV1Event
         - event: Flash(indexed address,indexed address,uint256,uint256,uint256,uint256)
-          handler: handleFlash
+          handler: handlePoolFlashV1Event
         - event: SetFeeProtocol(uint8,uint8,uint8,uint8)
-          handler: handleSetFeeProtocol
+          handler: handlePoolSetFeeProtocolV1Event
         - event: CollectProtocol(indexed address,indexed address,uint128,uint128)
-          handler: handleCollectProtocol
-    
-
+          handler: handlePoolCollectProtocolV1Event
