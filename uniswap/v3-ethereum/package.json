@@ -1,5 +1,5 @@
 {
-  "name": "uniswap-v3-ethereum1",
+  "name": "uniswap-v3-ethereum",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
