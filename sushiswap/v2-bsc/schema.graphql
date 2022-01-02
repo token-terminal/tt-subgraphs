@@ -1,0 +1,86 @@
+type FactoryPairCreatedV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  token0: Bytes!
+  token1: Bytes!
+  pair: Bytes! #address
+}
+
+type PairMintV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes! #address
+  amount0: BigInt!
+  amount1: BigInt!
+}
+
+type PairBurnV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+  to: Bytes! #address
+}
+
+type PairSwapV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  sender: Bytes!
+  amount0In: BigInt!
+  amount1In: BigInt!
+  amount0Out: BigInt!
+  amount1Out: BigInt!
+  to: Bytes! #address
+}
+
+type PairApprovalV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt!
+}
+
+type PairTransferV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
+}
+
+type PairSyncV1Event @entity {
+  id: ID!
+  transactionHash: Bytes!
+  address: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  logIndex: BigInt!
+  reserve0: BigInt!
+  reserve1: BigInt!
+}
