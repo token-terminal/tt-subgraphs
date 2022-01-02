@@ -1,169 +1,114 @@
-import { BigInt } from '@graphprotocol/graph-ts'
 import { Pair as PairTemplate } from '../generated/templates'
-import { UniswapV2Factory, PairCreated } from '../generated/UniswapV2Factory/UniswapV2Factory'
-import { Mint, Burn, Swap, Transfer, Approval, Sync } from '../generated/templates/Pair/UniswapV2Pair'
+import { PairCreated as FactoryPairCreatedEventV1 } from '../generated/Factory/Factory'
 import {
-  PairCreatedV0Event,
-  MintV0Event,
-  BurnV0Event,
-  SwapV0Event,
-  TransferV0Event,
-  ApprovalV0Event,
-  SyncV0Event,
+  Mint as PairMintEventV1,
+  Burn as PairBurnEventV1,
+  Swap as PairSwapEventV1,
+  Transfer as PairTransferEventV1,
+  Approval as PairApprovalEventV1,
+  Sync as PairSyncEventV1,
+} from '../generated/templates/Pair/Pair'
+import {
+  FactoryPairCreatedV1Event,
+  PairMintV1Event,
+  PairBurnV1Event,
+  PairSwapV1Event,
+  PairTransferV1Event,
+  PairApprovalV1Event,
+  PairSyncV1Event,
 } from '../generated/schema'
 
-export function handlePairCreated(event: PairCreated): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let PairCreatedEntity = new PairCreatedV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let token0 = event.params.token0
-  let token1 = event.params.token1
-  let pair = event.params.pair
-
-  PairTemplate.create(pair)
-
-  PairCreatedEntity.transactionHash = transactionHash
-  PairCreatedEntity.contractAddress = contractAddress
-  PairCreatedEntity.blockNumber = blockNumber
-  PairCreatedEntity.blockTime = blockTime
-  PairCreatedEntity.logIndex = logIndex
-  PairCreatedEntity.token0 = token0
-  PairCreatedEntity.token1 = token1
-  PairCreatedEntity.pair = pair
-  PairCreatedEntity.save()
+export function handleFactoryPairCreatedV1Event(event: FactoryPairCreatedEventV1): void {
+  let entity = new FactoryPairCreatedV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  PairTemplate.create(event.params.pair)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.token0 = event.params.token0
+  entity.token1 = event.params.token1
+  entity.pair = event.params.pair
+  entity.save()
 }
-export function handleMint(event: Mint): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let mintEntity = new MintV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let sender = event.params.sender
-  let amount0 = event.params.amount0
-  let amount1 = event.params.amount1
 
-  mintEntity.transactionHash = transactionHash
-  mintEntity.contractAddress = contractAddress
-  mintEntity.blockNumber = blockNumber
-  mintEntity.blockTime = blockTime
-  mintEntity.logIndex = logIndex
-  mintEntity.sender = sender
-  mintEntity.amount0 = amount0
-  mintEntity.amount1 = amount1
-  mintEntity.save()
+export function handlePairMintV1Event(event: PairMintEventV1): void {
+  let entity = new PairMintV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.sender = event.params.sender
+  entity.amount0 = event.params.amount0
+  entity.amount1 = event.params.amount1
+  entity.save()
 }
-export function handleBurn(event: Burn): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let burnEntity = new BurnV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let sender = event.params.sender
-  let amount0 = event.params.amount0
-  let amount1 = event.params.amount1
-  let to = event.params.to
 
-  burnEntity.transactionHash = transactionHash
-  burnEntity.contractAddress = contractAddress
-  burnEntity.blockNumber = blockNumber
-  burnEntity.blockTime = blockTime
-  burnEntity.logIndex = logIndex
-  burnEntity.sender = sender
-  burnEntity.amount0 = amount0
-  burnEntity.amount1 = amount1
-  burnEntity.to = to
-  burnEntity.save()
+export function handlePairBurnV1Event(event: PairBurnEventV1): void {
+  let entity = new PairBurnV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.sender = event.params.sender
+  entity.amount0 = event.params.amount0
+  entity.amount1 = event.params.amount1
+  entity.to = event.params.to
+  entity.save()
 }
-export function handleSwap(event: Swap): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let swapEntity = new SwapV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let sender = event.params.sender
-  let amount0In = event.params.amount0In
-  let amount1In = event.params.amount1In
-  let amount0Out = event.params.amount0Out
-  let amount1Out = event.params.amount1Out
-  let to = event.params.to
 
-  swapEntity.transactionHash = transactionHash
-  swapEntity.contractAddress = contractAddress
-  swapEntity.blockNumber = blockNumber
-  swapEntity.blockTime = blockTime
-  swapEntity.logIndex = logIndex
-  swapEntity.sender = sender
-  swapEntity.amount0In = amount0In
-  swapEntity.amount1In = amount1In
-  swapEntity.amount0Out = amount0Out
-  swapEntity.amount1Out = amount1Out
-  swapEntity.to = to
-  swapEntity.save()
+export function handlePairSwapV1Event(event: PairSwapEventV1): void {
+  let entity = new PairSwapV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.sender = event.params.sender
+  entity.amount0In = event.params.amount0In
+  entity.amount1In = event.params.amount1In
+  entity.amount0Out = event.params.amount0Out
+  entity.amount1Out = event.params.amount1Out
+  entity.to = event.params.to
+  entity.save()
 }
-export function handleApproval(event: Approval): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let approvalEntity = new ApprovalV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let owner = event.params.owner
-  let spender = event.params.spender
-  let value = event.params.value
 
-  approvalEntity.transactionHash = transactionHash
-  approvalEntity.contractAddress = contractAddress
-  approvalEntity.blockNumber = blockNumber
-  approvalEntity.blockTime = blockTime
-  approvalEntity.logIndex = logIndex
-  approvalEntity.owner = owner
-  approvalEntity.spender = spender
-  approvalEntity.value = value
-  approvalEntity.save()
+export function handlePairApprovalV1Event(event: PairApprovalEventV1): void {
+  let entity = new PairApprovalV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.owner = event.params.owner
+  entity.spender = event.params.spender
+  entity.value = event.params.value
+  entity.save()
 }
-export function handleTransfer(event: Transfer): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let transferEntity = new TransferV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let from = event.params.from
-  let to = event.params.to
-  let value = event.params.value
 
-  transferEntity.transactionHash = transactionHash
-  transferEntity.contractAddress = contractAddress
-  transferEntity.blockNumber = blockNumber
-  transferEntity.blockTime = blockTime
-  transferEntity.logIndex = logIndex
-  transferEntity.from = from
-  transferEntity.to = to
-  transferEntity.amount = value
-  transferEntity.save()
+export function handlePairTransferV1Event(event: PairTransferEventV1): void {
+  let entity = new PairTransferV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.from = event.params.from
+  entity.to = event.params.to
+  entity.value = event.params.value
+  entity.save()
 }
-export function handleSync(event: Sync): void {
-  let transactionHash = event.transaction.hash
-  let contractAddress = event.address
-  let blockNumber = event.block.number
-  let blockTime = event.block.timestamp
-  let logIndex = event.logIndex
-  let SyncEntity = new SyncV0Event(`${transactionHash.toHexString()}-${logIndex}`)
-  let reserve0 = event.params.reserve0
-  let reserve1 = event.params.reserve1
 
-  SyncEntity.transactionHash = transactionHash
-  SyncEntity.contractAddress = contractAddress
-  SyncEntity.blockNumber = blockNumber
-  SyncEntity.blockTime = blockTime
-  SyncEntity.logIndex = logIndex
-  SyncEntity.reserve0 = reserve0
-  SyncEntity.reserve1 = reserve1
-  SyncEntity.save()
+export function handlePairSyncV1Event(event: PairSyncEventV1): void {
+  let entity = new PairSyncV1Event(`${event.transaction.hash.toHexString()}-${event.logIndex}`)
+  entity.transactionHash = event.transaction.hash
+  entity.address = event.address
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.logIndex = event.logIndex
+  entity.reserve0 = event.params.reserve0
+  entity.reserve1 = event.params.reserve1
+  entity.save()
 }
